@@ -8,8 +8,15 @@ using UnityEngine;
 
 public class RoundRunningState : StateNode<List<PlayerController>>
 {
-    private List<PlayerID> _players = new();
+    private List<PlayerController> _players = new();
     private bool _roundEnded = false;
+    public int Number1 = 0;
+    public int Number2 = 0;
+    public int Number3 = 0;
+    public int Number4 = 0;
+    public int Number5 = 0;
+    public int Number6 = 0;
+    public PlayerController playerActive;
     [SerializeField] private PlayerSpawningState playerSpawningState;
     public override void Enter(List<PlayerController> data, bool asServer)
     {
@@ -25,9 +32,11 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         {
             if(player.owner.HasValue)
             {
-                _players.Add(player.owner.Value);
+                _players.Add(player);
             }
         }
+        playerActive = _players[1];
+        StartPlayerRound(playerActive);
 
     }
 
@@ -37,17 +46,19 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         {
             return;
         }
+        
 
-        /* if(bookCollectorBlue.NumberBook >= 3)
-        {
-            machine.Next(playerSpawningState.blueTeam);
-            _roundEnded = true;
-        }
-        else if(BookCollectorRed.NumberBook >= 3)
-        {
-            machine.Next(playerSpawningState.redTeam);
-            _roundEnded = true;
-        } */
+    }
 
+    void StartPlayerRound(PlayerController player)
+    {
+        
+        
+    }
+
+    void EndRound(PlayerController player)
+    {
+        //Ask to Bid or liar
+        
     }
 }

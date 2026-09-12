@@ -9,7 +9,7 @@ public class DiceRoll : MonoBehaviour
     [SerializeField] private float maxRandomForce = 100, startRollingForce = 200;
 
     public void Roll()
-    {
+    {       GetComponent<Rigidbody>().isKinematic = false;
             float forceX = Random.Range(0, maxRandomForce);
             float forceY = Random.Range(0, maxRandomForce);
             float forceZ = Random.Range(0, maxRandomForce);

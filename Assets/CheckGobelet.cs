@@ -14,7 +14,7 @@ public class CheckGobelet : MonoBehaviour
         if(Up)
         {
             animator.SetTrigger("Check");
-            checking = true; 
+            checking = true;
         }
         else
         {
