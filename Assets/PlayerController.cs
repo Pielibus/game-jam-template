@@ -7,7 +7,8 @@ using PurrNet;
 public class PlayerController : NetworkBehaviour
 {
     [SerializeField] private GameObject[] AllDice;
-    [SerializeField] private GameObject Gobelet;private NumberChecker numberChecker;
+    [SerializeField] private GameObject Gobelet;
+    private NumberChecker numberChecker;
     void Awake()
     {
         numberChecker = GameObject.FindGameObjectWithTag("Ground").GetComponent<NumberChecker>();

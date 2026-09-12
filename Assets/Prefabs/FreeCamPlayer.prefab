@@ -233,7 +233,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5154484800931780872}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 618b0e3f6c65dd247a4a016150006c57, type: 3}
   m_Name: 
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5154484800931780872}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39d5e4b97b1615f4aae984a3d5f4235f, type: 3}
   m_Name: 
@@ -448,7 +448,6 @@ MonoBehaviour:
   _directChildren: []
   AllDice: []
   Gobelet: {fileID: 0}
-  numberChecker: {fileID: 0}
 --- !u!1 &9125522938505943470
 GameObject:
   m_ObjectHideFlags: 0
