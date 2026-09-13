@@ -2999,7 +2999,7 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _invertedPathToNearestParent: 
   _directChildren: []
-  _ownerAuth: 0
+  _ownerAuth: 1
   _states:
   - {fileID: 92065122}
   - {fileID: 261466381}
@@ -3229,6 +3229,7 @@ MonoBehaviour:
   currentBid: 0
   currentBidDice: 1
   playerActive: {fileID: 0}
+  Results: 000000000000000000000000000000000000000000000000i
   playerSpawningState: {fileID: 261466381}
   numberChecker: {fileID: 697948587}
   currentDicesCount: []
@@ -3445,19 +3446,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1125646350855250824, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_Mass
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125646350855250824, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2022420029145271966, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_Mass
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2022420029145271966, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4553669763195758601, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_Mass
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4553669763195758601, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4957150742191021879, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_Mass
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957150742191021879, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5914580942518624988, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3505,7 +3522,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8915298998870102264, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_Mass
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915298998870102264, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
