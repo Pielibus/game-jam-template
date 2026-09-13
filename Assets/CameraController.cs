@@ -28,7 +28,6 @@ public class CameraController : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, maxClampy, maxClampx);
         yRotation -= look.x;
         yRotation = Mathf.Clamp(yRotation, 90f, 270f);
-        Debug.Log(Head.transform.rotation);
         Head.transform.localRotation = Quaternion.Euler(xRotation, -yRotation, 0f);
     }
 }

@@ -46,7 +46,9 @@ public class PlayerSpawningState : StateNode
             spawnedPlayers.Add(newPlayer);
             Debug.Log(playerCharacters + " " + playerCharacters[player]);
             GameObject gobelet = newPlayer.transform.Find("Gobelet").gameObject;
+            GameObject wall = gobelet.transform.Find("Wall").gameObject;
             gobelet.transform.parent = null;
+            wall.transform.parent = null;
             currentSpawnIndex++;
         }
         
