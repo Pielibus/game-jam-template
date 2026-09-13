@@ -2076,6 +2076,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592aa80f3df8b485e93acd5883ed37ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _isSetup: 0
+  _prefabId: -2147483648
+  _hasPrefabScope: 0
+  _prefabScope: 0
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
   Main: {fileID: 1182521275}
   plusBid: {fileID: 1273206377}
   minusBid: {fileID: 414939097}
@@ -3220,12 +3231,6 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _invertedPathToNearestParent: 
   _directChildren: []
-  Number1: 0
-  Number2: 0
-  Number3: 0
-  Number4: 0
-  Number5: 0
-  Number6: 0
   currentBid: 0
   currentBidDice: 1
   playerActive: {fileID: 0}
@@ -3234,6 +3239,17 @@ MonoBehaviour:
   numberChecker: {fileID: 697948587}
   currentDicesCount: []
   Running: 0
+--- !u!114 &2037478832 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2097972294498225108, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+  m_PrefabInstance: {fileID: 277802101453742691}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7b598b9d8509d64abb9fdaf07fa3f6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkAnimator
 --- !u!1 &2054225772
 GameObject:
   m_ObjectHideFlags: 0
@@ -3444,38 +3460,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1125646350855250824, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_Mass
+    - target: {fileID: 3772037339147873132, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1125646350855250824, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2022420029145271966, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2022420029145271966, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4553669763195758601, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4553669763195758601, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4957150742191021879, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4957150742191021879, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 5364372321108989279, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 2037478832}
     - target: {fileID: 5914580942518624988, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3520,13 +3512,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerTest
       objectReference: {fileID: 0}
-    - target: {fileID: 8915298998870102264, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_Mass
+    - target: {fileID: 8343825961658769691, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8915298998870102264, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_Interpolate
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
