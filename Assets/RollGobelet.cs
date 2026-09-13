@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using PurrNet.StateMachine;
 public class RollGobelet : MonoBehaviour
 {
     [SerializeField] private GameObject gobelet;
@@ -8,6 +9,8 @@ public class RollGobelet : MonoBehaviour
     [SerializeField] private CheckMouse checkMouse;
     [SerializeField] private MeshCollider wall;
     [SerializeField] private BoxCollider close;
+
+    private Vector3 OGpos;
     private bool RollLock = false;
     public void StartRoll()
     {
@@ -18,7 +21,15 @@ public class RollGobelet : MonoBehaviour
     public void PauseRoll()
     {
         animator.speed = 0;
+        OGpos = checkMouse.transform.position;
         animator.enabled = false;
         checkMouse.On = true;
+    }
+    public void StopRoll()
+    {
+        checkMouse.On = false;
+        animator.enabled = true;
+        animator.speed = 1;
+        checkMouse.transform.position = OGpos;
     }
 }

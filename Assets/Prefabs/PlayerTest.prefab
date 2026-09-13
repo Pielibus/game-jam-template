@@ -1999,7 +1999,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5146303309195436711}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 3
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2015,9 +2015,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!4 &5485533035517622301 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5402003821346069078, guid: c7675d177a715e348afc15f0fd5012b2, type: 3}
@@ -2422,7 +2422,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1930525317192498249}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 3
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2438,9 +2438,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1001 &6817731378853311938
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2578,7 +2578,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2243188331620283694}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 3
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2594,9 +2594,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1001 &8055663983090114078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2683,6 +2683,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 580003b04a1d24a8884104e13f7e498a, type: 3}
+--- !u!64 &6072239544666665219 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: 4291818327565741853, guid: 580003b04a1d24a8884104e13f7e498a, type: 3}
+  m_PrefabInstance: {fileID: 8055663983090114078}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8947105461037949152 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1432697415489650430, guid: 580003b04a1d24a8884104e13f7e498a, type: 3}
@@ -2825,7 +2830,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4256145416302156124}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 3
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2841,9 +2846,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1001 &8892484249893200041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2989,8 +2994,20 @@ PrefabInstance:
       value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7456103918699097655, guid: 257156dabfcfb4dc9bdebe5ae87fa4c7, type: 3}
+      propertyPath: m_Mass
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456103918699097655, guid: 257156dabfcfb4dc9bdebe5ae87fa4c7, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456103918699097655, guid: 257156dabfcfb4dc9bdebe5ae87fa4c7, type: 3}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456103918699097655, guid: 257156dabfcfb4dc9bdebe5ae87fa4c7, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7551612823797836769, guid: 257156dabfcfb4dc9bdebe5ae87fa4c7, type: 3}
       propertyPath: m_Enabled
@@ -3095,6 +3112,8 @@ MonoBehaviour:
   animator: {fileID: 4408058759446963513}
   lookInput: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   checkMouse: {fileID: 6513180666969370684}
+  wall: {fileID: 6072239544666665219}
+  close: {fileID: 2938605596762727783}
 --- !u!4 &5738003555352077089 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3803580819974620040, guid: 257156dabfcfb4dc9bdebe5ae87fa4c7, type: 3}

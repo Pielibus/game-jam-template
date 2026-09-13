@@ -23,7 +23,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     private BidChoice bidChoice;
     private int IndexPlayer;
     private PlayerController lastPlayer;
-    private List<int> Results = new List<int>{ 0, 0, 0, 0, 0, 0 };
+    public List<int> Results = new List<int>{ 0, 0, 0, 0, 0, 0 };
     [SerializeField] private PlayerSpawningState playerSpawningState;
     [SerializeField] private NumberChecker numberChecker;
     [SerializeField] public Dictionary<GameObject, int> currentDicesCount = new();
@@ -108,9 +108,16 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             {
                 loseDice(lastPlayer);
             }
+            currentDicesCount.Clear();
+            numberChecker.dicesCount.Clear();
+            Results.Clear();
+            currentBid =0;
+            currentBidDice = 1;
             IndexPlayer += 1;
             if(_players.Count - 1 < IndexPlayer)
                 IndexPlayer = 0;
+
+            
             StartPlayerRound(playerActive.owner.Value, playerActive, true);
 
         }
@@ -119,5 +126,6 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     private void loseDice(PlayerController playerController)
     {
         Debug.Log(playerController.owner.Value + "Has lost a dice");
+        Destroy(playerController.AllDice[1].gameObject);
     }
 }
