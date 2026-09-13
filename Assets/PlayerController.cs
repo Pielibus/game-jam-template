@@ -9,6 +9,7 @@ public class PlayerController : NetworkBehaviour
 {
     [SerializeField] public GameObject[] AllDice;
     [SerializeField] public GameObject Gobelet;
+    [SerializeField] public GameObject nose;
     private RoundRunningState roundRunningState;
     
     private NumberChecker numberChecker;
@@ -31,12 +32,13 @@ public class PlayerController : NetworkBehaviour
         Gobelet.GetComponent<RollGobelet>().StartRoll();
         
     }
-
-    public void StartRolling()
+    [TargetRpc]
+    public void StartRolling(PlayerID playerID)
     {
         Gobelet.GetComponent<RollGobelet>().StartRoll();
     }
-    public void StopRolling()
+    [TargetRpc]
+    public void StopRolling(PlayerID playerID)
     {
         Gobelet.GetComponent<RollGobelet>().StopRoll();
     }
