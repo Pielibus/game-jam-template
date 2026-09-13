@@ -22,7 +22,7 @@ public class RollDiceState : StateNode<List<PlayerController>>
         {
             if(player.owner.HasValue)
             {
-                player.StartRolling();
+                player.StartRolling(player.owner.Value);
             }
         }
 
@@ -40,7 +40,7 @@ public class RollDiceState : StateNode<List<PlayerController>>
             {
                 if(player.owner.HasValue)
                 {
-                    player.StopRolling();
+                    player.StopRolling(player.owner.Value);
                 }
             }
         }

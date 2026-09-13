@@ -41,19 +41,25 @@ public class PlayerSpawningState : StateNode
             var spawnPoint = spawnPoints[currentSpawnIndex];
             var newPlayer = Instantiate(prefabPlayer, spawnPoint.position, spawnPoint.rotation);
             newPlayer.GiveOwnership(player);
-            Debug.Log(newPlayer.transform.rotation + " " + spawnPoint.rotation);
             playerCharacters[player] = newPlayer.gameObject;
             spawnedPlayers.Add(newPlayer);
-            Debug.Log(playerCharacters + " " + playerCharacters[player]);
             GameObject gobelet = newPlayer.transform.Find("Gobelet").gameObject;
             GameObject wall = gobelet.transform.Find("Wall").gameObject;
             gobelet.transform.parent = null;
             wall.transform.parent = null;
+            SetClient(player, newPlayer);
             currentSpawnIndex++;
         }
         
         AllPlayers = spawnedPlayers;
         return spawnedPlayers;
+    }
+
+    [TargetRpc]
+    private void SetClient(PlayerID playerID, PlayerController player)
+    {
+        player.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        player.nose.GetComponent<MeshRenderer>().enabled = false;
     }
 
     public override void Exit(bool asServer)

@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using PurrNet.StateMachine;
+using PurrNet;
 public class RollGobelet : MonoBehaviour
 {
     [SerializeField] private GameObject gobelet;
-    [SerializeField] private Animator animator;
+    [SerializeField] private NetworkAnimator animator;
     [SerializeField] private InputActionReference lookInput;
     [SerializeField] private CheckMouse checkMouse;
     [SerializeField] private MeshCollider wall;
