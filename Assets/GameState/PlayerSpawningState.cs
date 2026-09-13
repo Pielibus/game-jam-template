@@ -41,7 +41,7 @@ public class PlayerSpawningState : StateNode
             var spawnPoint = spawnPoints[currentSpawnIndex];
             var newPlayer = Instantiate(prefabPlayer, spawnPoint.position, spawnPoint.rotation);
             newPlayer.GiveOwnership(player);
-            Debug.Log(player + " " + newPlayer + " " + newPlayer.gameObject);
+            Debug.Log(newPlayer.transform.rotation + " " + spawnPoint.rotation);
             playerCharacters[player] = newPlayer.gameObject;
             spawnedPlayers.Add(newPlayer);
             Debug.Log(playerCharacters + " " + playerCharacters[player]);
