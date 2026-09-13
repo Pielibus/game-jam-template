@@ -1,10 +1,11 @@
 using System;
+using PurrNet;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BidChoice : MonoBehaviour
+public class BidChoice : NetworkBehaviour
 {
     private int bid = 1;
     private int bidDice = 1;
@@ -36,8 +37,8 @@ public class BidChoice : MonoBehaviour
         roundRunningState.EndGame(mainController);
         Cursor.lockState = CursorLockMode.Locked;
     }
-
-    public void StartRound(PlayerController playerController, int currentBid, int currentBidDice, bool first)
+    [TargetRpc]
+    public void StartRound(PlayerID playerID, PlayerController playerController, int currentBid, int currentBidDice, bool first)
     {
         Main.enabled = true;
         mainController = playerController;

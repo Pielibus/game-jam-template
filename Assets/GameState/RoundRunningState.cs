@@ -11,12 +11,6 @@ public class RoundRunningState : StateNode<List<PlayerController>>
 {
     private List<PlayerController> _players = new();
     private bool _roundEnded = false;
-    public int Number1 = 0;
-    public int Number2 = 0;
-    public int Number3 = 0;
-    public int Number4 = 0;
-    public int Number5 = 0;
-    public int Number6 = 0;
     public int currentBid = 1;
     public int currentBidDice = 1;
     public PlayerController playerActive;
@@ -67,10 +61,10 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     {
         Debug.Log(player.owner.Value + " Has start Round");
         bidChoice = GameObject.FindGameObjectWithTag("RoundView").GetComponent<BidChoice>();
-        bidChoice.StartRound(player, currentBid + 1, currentBidDice, first);
+        bidChoice.StartRound(player.owner.Value, player ,currentBid + 1, currentBidDice, first);
         
     }
-
+    [ServerRpc]
     public void EndRound(PlayerController player, int bid, int bidDice)
     {
         if(player == playerActive)
@@ -88,6 +82,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             Debug.Log(player.owner.Value + " Has End Round");
         }
     }
+    [ServerRpc]
     public void EndGame(PlayerController player)
     {
         if(player == playerActive)
