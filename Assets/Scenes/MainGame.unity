@@ -3444,36 +3444,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1125646350855250824, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1261370874818750195, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.5669997
-      objectReference: {fileID: 0}
-    - target: {fileID: 1471189763392761748, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.5669997
+      propertyPath: m_Mass
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2022420029145271966, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3484393134935802854, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.5669997
+      propertyPath: m_Mass
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4553669763195758601, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
+      propertyPath: m_Mass
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4957150742191021879, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5485533035517622301, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.5669997
+      propertyPath: m_Mass
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5914580942518624988, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3515,17 +3499,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8019862670418368023, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.567
-      objectReference: {fileID: 0}
     - target: {fileID: 8140730896837125614, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_Name
       value: PlayerTest
       objectReference: {fileID: 0}
     - target: {fileID: 8915298998870102264, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
+      propertyPath: m_Mass
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

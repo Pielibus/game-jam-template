@@ -7,9 +7,9 @@ using PurrNet.StateMachine;
 
 public class PlayerController : NetworkBehaviour
 {
-    [SerializeField] private GameObject[] AllDice;
+    [SerializeField] public GameObject[] AllDice;
     [SerializeField] public GameObject Gobelet;
-    [SerializeField] private RoundRunningState roundRunningState;
+    private RoundRunningState roundRunningState;
     
     private NumberChecker numberChecker;
     void Awake()
@@ -35,6 +35,10 @@ public class PlayerController : NetworkBehaviour
     public void StartRolling()
     {
         Gobelet.GetComponent<RollGobelet>().StartRoll();
+    }
+    public void StopRolling()
+    {
+        Gobelet.GetComponent<RollGobelet>().StopRoll();
     }
 
     public void CheckGobelet(InputAction.CallbackContext context)
