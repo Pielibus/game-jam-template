@@ -11,7 +11,6 @@ public class NumberChecker : MonoBehaviour
             {
                 if(!dicesCount.Contains(other.gameObject))
                 {
-                Debug.Log(other.transform.name);
                 dicesCount.Add(other.gameObject);
                 }
                 
