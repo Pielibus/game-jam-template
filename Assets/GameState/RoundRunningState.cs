@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using PurrNet;
 using PurrNet.StateMachine;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     public List<int> Results = new List<int>{ 0, 0, 0, 0, 0, 0 };
     [SerializeField] private PlayerSpawningState playerSpawningState;
     [SerializeField] private NumberChecker numberChecker;
+    [SerializeField] private RotateDice rotateDice;
     [SerializeField] public Dictionary<GameObject, int> currentDicesCount = new();
     public bool Running = false;
     public override void Enter(List<PlayerController> data, bool asServer)
@@ -81,6 +83,13 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             playerActive = _players[IndexPlayer];
             StartPlayerRound(playerActive.owner.Value,playerActive, false, bid, bidDice);
             Debug.Log(player.owner.Value + " Has End Round");
+            foreach (var plr in _players)
+            {
+            if(plr.owner.HasValue)
+            {
+                UpdateBid(plr.owner.Value, plr, currentBid.value, currentBidDice.value);
+            }
+            }
         }
     }
     [ServerRpc]
@@ -118,6 +127,11 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             StartPlayerRound(playerActive.owner.Value, playerActive, true, currentBid.value, currentBidDice.value);
 
         }
+    }
+    [TargetRpc]
+    private void UpdateBid(PlayerID playerID, PlayerController player, int bid, int bidDice)
+    {
+            rotateDice.StartRotation(player, bidDice, bid);
     }
     
     private void loseDice(PlayerController playerController)

@@ -19,6 +19,7 @@ public class PlayerController : NetworkBehaviour
     private RoundRunningState roundRunningState;
     
     private NumberChecker numberChecker;
+    public Vector3 OGRotation;
     void Awake()
     {
         numberChecker = GameObject.FindGameObjectWithTag("Ground").GetComponent<NumberChecker>();
