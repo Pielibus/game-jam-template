@@ -22,6 +22,7 @@ public class RollDiceState : StateNode<List<PlayerController>>
         {
             if(player.owner.HasValue)
             {
+                player.center.parent = player.GobeletPhysic;
                 player.StartRolling(player.owner.Value);
             }
         }
@@ -45,7 +46,19 @@ public class RollDiceState : StateNode<List<PlayerController>>
             }
         }
         if(Time.fixedTime - time > 10)
+        {
+            foreach (var player in playerControllers)
+            {
+                if(player.owner.HasValue)
+                {
+                    player.center.parent = null;
+                    player.Wall.GetComponent<MeshCollider>().enabled = true;
+                    player.Close.GetComponent<BoxCollider>().enabled = false;
+                }
+            }
             machine.Next(playerControllers);
+        }
+            
         
     }
    

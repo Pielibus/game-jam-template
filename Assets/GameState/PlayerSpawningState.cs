@@ -58,8 +58,14 @@ public class PlayerSpawningState : StateNode
     [TargetRpc]
     private void SetClient(PlayerID playerID, PlayerController player)
     {
+        var Cameras = GameObject.FindGameObjectsWithTag("MainCamera");
+        foreach (GameObject camera in Cameras)
+        {
+            camera.SetActive(false);
+        }
         player.gameObject.GetComponent<MeshRenderer>().enabled = false;
         player.nose.GetComponent<MeshRenderer>().enabled = false;
+        player.transform.Find("Main Camera").gameObject.SetActive(true);
     }
 
     public override void Exit(bool asServer)
