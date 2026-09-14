@@ -62,7 +62,6 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     [TargetRpc]
     void StartPlayerRound(PlayerID playerID, PlayerController player, bool first, int bid, int bidDice)
     {
-        Debug.Log("Next player start bid is " + bid + " "+ bidDice);
         bidChoice = GameObject.FindGameObjectWithTag("RoundView").GetComponent<BidChoice>();
         bidChoice.StartRound(player.owner.Value, player ,bid + 1, bidDice, first);
         
@@ -72,19 +71,15 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     {
         if(player == playerActive)
         {
-            Debug.Log("bid reiceved "+ bid + " " + bidDice);
             currentBid.value = bid;
             currentBidDice.value = bidDice;
             
             IndexPlayer += 1;
             if(_players.Count - 1 < IndexPlayer)
                 IndexPlayer = 0;
-            Debug.Log(IndexPlayer + " "+ _players.Count);
             lastPlayer = playerActive;
             playerActive = _players[IndexPlayer];
-            Debug.Log("Round is to" + playerActive.owner.Value);
             StartPlayerRound(playerActive.owner.Value,playerActive, false, bid, bidDice);
-            Debug.Log(player.owner.Value + " Has End Round");
             foreach (var plr in _players)
             {
                 if(plr.owner.HasValue)
@@ -99,16 +94,9 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     {
         if(player == playerActive)
         {
-            Debug.Log("End Game");
             currentDicesCount = numberChecker.dicesCount;
             foreach (var dice in numberChecker.dicesCount)
             {
-                Debug.Log(Results[1]);
-                Debug.Log(Results[2]);
-                Debug.Log(Results[3]);
-                Debug.Log(Results[4]);
-                Debug.Log(Results[5]);
-                Debug.Log(Results[6]);
                 
                 Results[dice.Value] += 1;
                 Debug.Log(Results[dice.Value]);
@@ -142,7 +130,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     [TargetRpc]
     private void UpdateBid(PlayerID playerID, PlayerController player, int bid, int bidDice)
     {
-            rotateDice.StartRotation(player, bidDice, bid);
+        rotateDice.StartRotation(player, bidDice, bid);
     }
     
     private void loseDice(PlayerController playerController)
