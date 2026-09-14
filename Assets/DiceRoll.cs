@@ -12,6 +12,14 @@ public class DiceRoll : NetworkBehaviour
     [SerializeField] public Transform center2;
     [SerializeField] public Transform center3;
 
+    void Start()
+    {
+        if(!isServer)
+        {
+            
+        }
+    }
+
     public void Roll()
     {       GetComponent<Rigidbody>().isKinematic = false;
             float forceX = Random.Range(0, maxRandomForce);

@@ -74,14 +74,13 @@ public class BidChoice : NetworkBehaviour
             {
                 bidDice += 1;
             }
-            StartRotation(mainController, bidDice, bid);
+            StartRotation(mainController, bidDice);
         }
         if(button == "Confirm")
         {
             if(Confirm.enabled)
             {
                 CloseBid();
-                Debug.Log("end Round");
                 roundRunningState.EndRound(mainController, bid, bidDice);
             }
                 
@@ -89,7 +88,7 @@ public class BidChoice : NetworkBehaviour
         UpdateUI(bid);
 
     }
-    public void StartRotation(PlayerController plr, int bidDice, int bid)
+    public void StartRotation(PlayerController plr, int bidDice)
     {
         player = plr;
         currentAngle = Dice.transform.localEulerAngles;
@@ -98,9 +97,6 @@ public class BidChoice : NetworkBehaviour
     }
     public void Update()
     {
-        if(!player)
-            return;
-
         currentAngle = new Vector3(
             Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime * speed),
             Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime * speed),
@@ -111,7 +107,6 @@ public class BidChoice : NetworkBehaviour
     [ObserversRpc]
     public void StartRound(PlayerID playerID, PlayerController playerController, int currentBid, int currentBidDice, bool first)
     {
-        Debug.Log("StartRound");
         mainController = playerController;
         Open(first, mainController);
         CurrentBid = currentBid;
@@ -138,8 +133,8 @@ public class BidChoice : NetworkBehaviour
         ShowBid.enabled = false;
         Dice.SetActive(false);
         transform.position = mainController.spawnerBid.value;
-        //transform.eulerAngles = mainController.SpawnerBid.eulerAngles;
-        StartRotation(mainController, bidDice, bid);
+        transform.eulerAngles = mainController.spawnerBidRotation.value;
+        StartRotation(mainController, bidDice);
         
         
         if(first)

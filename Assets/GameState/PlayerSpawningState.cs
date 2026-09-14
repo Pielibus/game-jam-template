@@ -40,6 +40,8 @@ public class PlayerSpawningState : StateNode
         {
             var spawnPoint = spawnPoints[currentSpawnIndex];
             var newPlayer = Instantiate(prefabPlayer, spawnPoint.position, spawnPoint.rotation);
+            newPlayer.spawnerBid.value = spawnPoint.Find("BidSpawn").position;
+            newPlayer.spawnerBidRotation.value = spawnPoint.Find("BidSpawn").eulerAngles;
             newPlayer.GiveOwnership(player);
             playerCharacters[player] = newPlayer.gameObject;
             spawnedPlayers.Add(newPlayer);
@@ -49,7 +51,6 @@ public class PlayerSpawningState : StateNode
             wall.transform.parent = null;
             SetClient(player, newPlayer);
             newPlayer.OGRotation = spawnPoint.rotation.eulerAngles;
-            newPlayer.spawnerBid.value = spawnPoint.Find("BidSpawn").position;
             currentSpawnIndex++;
         }
         
@@ -65,9 +66,8 @@ public class PlayerSpawningState : StateNode
         {
             camera.SetActive(false);
         }
-        player.gameObject.GetComponent<MeshRenderer>().enabled = false;
-        player.nose.GetComponent<MeshRenderer>().enabled = false;
-        player.transform.Find("Main Camera").gameObject.SetActive(true);
+        player.head.GetComponent<MeshRenderer>().enabled = false;
+        player.head.transform.Find("Main Camera").gameObject.SetActive(true);
     }
     public override void Exit(bool asServer)
     {

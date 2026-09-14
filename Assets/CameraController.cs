@@ -20,7 +20,6 @@ public class CameraController : NetworkBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
         initialRotation = Head.transform.localRotation.eulerAngles;
-        Debug.Log(initialRotation);
     }
 
     // Update is called once per frame

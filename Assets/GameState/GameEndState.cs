@@ -19,7 +19,6 @@ public class GameEndState : StateNode<Dictionary<string, int>>
             if(team.Value > winner.Value)
                 winner = team;
         }
-        Debug.Log(winner+" team has won the round");
         roundWins.Clear();
     }
 }
