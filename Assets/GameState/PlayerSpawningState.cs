@@ -67,7 +67,7 @@ public class PlayerSpawningState : StateNode
             camera.SetActive(false);
         }
         player.head.GetComponent<MeshRenderer>().enabled = false;
-        player.head.transform.Find("Main Camera").gameObject.SetActive(true);
+        player.head.transform.parent.Find("Main Camera").gameObject.SetActive(true);
     }
     public override void Exit(bool asServer)
     {
