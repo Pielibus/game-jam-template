@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System;
+using PurrNet;
 
 
-public class CheckMouse : MonoBehaviour 
+public class CheckMouse : NetworkBehaviour 
 {
 
 private Vector3 screenPoint;
@@ -32,8 +33,14 @@ void OnMouseDrag()
 
     Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
     Debug.Log(transform.position + " "+ curPosition);
-    transform.position = new Vector3(Math.Clamp((transform.position.x - (curScreenPoint.x)/10), -10, 10), transform.position.y, transform.position.z);
+    Move(curScreenPoint);
 
 }
+
+[ServerRpc]
+void Move(Vector3 curScreenPoint)
+    {
+        transform.position = new Vector3(Math.Clamp((transform.position.x - (curScreenPoint.x)/10), -10, 10), transform.position.y, transform.position.z);
+    }
 
 }

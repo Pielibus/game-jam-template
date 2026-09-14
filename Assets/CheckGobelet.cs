@@ -50,7 +50,4 @@ public class CheckGobelet : MonoBehaviour
         asPause = true;
             
     }
-    void Update()
-    {
-    }
 }

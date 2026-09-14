@@ -1597,16 +1597,16 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _invertedPathToNearestParent: 
   _directChildren: []
-  _syncPosition: 2
-  _syncRotation: 2
+  _syncPosition: 1
+  _syncRotation: 1
   _syncScale: 1
   _syncParent: 1
-  _interpolateSettings: 7
+  _interpolateSettings: 1
   _minBufferSize: 1
-  _maxBufferSize: 2
+  _maxBufferSize: 5
   _characterControllerPatch: 0
-  _ownerAuth: 1
-  _interpolationTiming: 0
+  _ownerAuth: 0
+  _interpolationTiming: 1
   _adaptiveSynchronization: 2
 --- !u!1001 &4787243857651985417
 PrefabInstance:
@@ -1835,16 +1835,16 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _invertedPathToNearestParent: 
   _directChildren: []
-  _syncPosition: 2
-  _syncRotation: 2
+  _syncPosition: 1
+  _syncRotation: 1
   _syncScale: 1
   _syncParent: 1
-  _interpolateSettings: 7
+  _interpolateSettings: 1
   _minBufferSize: 1
-  _maxBufferSize: 2
+  _maxBufferSize: 5
   _characterControllerPatch: 0
-  _ownerAuth: 1
-  _interpolationTiming: 0
+  _ownerAuth: 0
+  _interpolationTiming: 1
   _adaptiveSynchronization: 2
 --- !u!4 &619369425675941471 stripped
 Transform:
@@ -2083,16 +2083,16 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _invertedPathToNearestParent: 
   _directChildren: []
-  _syncPosition: 2
-  _syncRotation: 2
+  _syncPosition: 1
+  _syncRotation: 1
   _syncScale: 1
   _syncParent: 1
-  _interpolateSettings: 7
+  _interpolateSettings: 1
   _minBufferSize: 1
-  _maxBufferSize: 2
+  _maxBufferSize: 5
   _characterControllerPatch: 0
-  _ownerAuth: 1
-  _interpolationTiming: 0
+  _ownerAuth: 0
+  _interpolationTiming: 1
   _adaptiveSynchronization: 2
 --- !u!1001 &8235225784235767234
 PrefabInstance:
@@ -2321,16 +2321,16 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _invertedPathToNearestParent: 
   _directChildren: []
-  _syncPosition: 2
-  _syncRotation: 2
+  _syncPosition: 1
+  _syncRotation: 1
   _syncScale: 1
   _syncParent: 1
-  _interpolateSettings: 7
+  _interpolateSettings: 1
   _minBufferSize: 1
-  _maxBufferSize: 2
+  _maxBufferSize: 5
   _characterControllerPatch: 0
-  _ownerAuth: 1
-  _interpolationTiming: 0
+  _ownerAuth: 0
+  _interpolationTiming: 1
   _adaptiveSynchronization: 2
 --- !u!4 &4088885751144525716 stripped
 Transform:
@@ -2573,6 +2573,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 3772037339147873132, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4308440879956400811, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.14
@@ -2805,6 +2809,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 6330190750339829793, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _ownerAuth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330190750339829793, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _syncPosition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330190750339829793, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _syncRotation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330190750339829793, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _maxBufferSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330190750339829793, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _interpolateSettings
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330190750339829793, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _interpolationTiming
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6405135782125558194, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2913,6 +2941,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -2228417370725966487, guid: 2d8c3c856d03e48459a85542dd8dca10, type: 3}
+    - target: {fileID: 8343825961658769691, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8903436891664005048, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_Mesh
       value: 

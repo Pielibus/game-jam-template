@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using PurrNet;
+using PurrNet.Collections;
 using PurrNet.StateMachine;
 using TMPro;
 using Unity.VisualScripting;
@@ -18,7 +19,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     private BidChoice bidChoice;
     private int IndexPlayer;
     private PlayerController lastPlayer;
-    public List<int> Results = new List<int>{ 0, 0, 0, 0, 0, 0 };
+    public List<int> Results = new List<int>{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     [SerializeField] private PlayerSpawningState playerSpawningState;
     [SerializeField] private NumberChecker numberChecker;
     [SerializeField] private RotateDice rotateDice;
@@ -81,14 +82,15 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             Debug.Log(IndexPlayer + " "+ _players.Count);
             lastPlayer = playerActive;
             playerActive = _players[IndexPlayer];
+            Debug.Log("Round is to" + playerActive.owner.Value);
             StartPlayerRound(playerActive.owner.Value,playerActive, false, bid, bidDice);
             Debug.Log(player.owner.Value + " Has End Round");
             foreach (var plr in _players)
             {
-            if(plr.owner.HasValue)
-            {
-                UpdateBid(plr.owner.Value, plr, currentBid.value, currentBidDice.value);
-            }
+                if(plr.owner.HasValue)
+                {
+                    UpdateBid(plr.owner.Value, plr, currentBid.value, currentBidDice.value);
+                }
             }
         }
     }
@@ -97,25 +99,34 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     {
         if(player == playerActive)
         {
+            Debug.Log("End Game");
             currentDicesCount = numberChecker.dicesCount;
             foreach (var dice in numberChecker.dicesCount)
             {
-                Debug.Log(dice.Value);
-                Debug.Log(Results[dice.Value]);
+                Debug.Log(Results[1]);
+                Debug.Log(Results[2]);
+                Debug.Log(Results[3]);
+                Debug.Log(Results[4]);
+                Debug.Log(Results[5]);
+                Debug.Log(Results[6]);
+                
                 Results[dice.Value] += 1;
+                Debug.Log(Results[dice.Value]);
             }
 
             if(Results[currentBidDice] >= currentBid)
             {
+                Debug.Log("NotBluffing you lost");
                 loseDice(playerActive);
             }
             else
             {
+                Debug.Log("Bluffing you win");
                 loseDice(lastPlayer);
             }
             currentDicesCount.Clear();
             numberChecker.dicesCount.Clear();
-            Results.Clear();
+            Results = new List<int>{ 0, 0, 0, 0, 0, 0, 0,};
             currentBid.value = 0;
             currentBidDice.value = 1;
             IndexPlayer += 1;
@@ -138,5 +149,6 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     {
         Debug.Log(playerController.owner.Value + "Has lost a dice");
         Destroy(playerController.AllDice[1].gameObject);
+        playerController.AllDice.RemoveAt(1);
     }
 }

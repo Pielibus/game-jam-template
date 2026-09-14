@@ -20,6 +20,7 @@ public class PlayerController : NetworkBehaviour
     
     private NumberChecker numberChecker;
     public Vector3 OGRotation;
+    public SyncVar<Vector3> spawnerBid = new SyncVar<Vector3>(Vector3.zero, ownerAuth:false);
     void Awake()
     {
         numberChecker = GameObject.FindGameObjectWithTag("Ground").GetComponent<NumberChecker>();
