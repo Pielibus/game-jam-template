@@ -6,6 +6,7 @@ public class RollGobelet : MonoBehaviour
 {
     [SerializeField] private GameObject gobelet;
     [SerializeField] private NetworkAnimator animator;
+    [SerializeField] private Animator Uanimator;
     [SerializeField] private InputActionReference lookInput;
     [SerializeField] private CheckMouse checkMouse;
     [SerializeField] private MeshCollider wall;
@@ -24,13 +25,13 @@ public class RollGobelet : MonoBehaviour
     {
         animator.speed = 0;
         OGpos = checkMouse.transform.position;
-        animator.enabled = false;
+        Uanimator.enabled = false;
         checkMouse.On = true;
     }
     public void StopRoll()
     {
         checkMouse.On = false;
-        animator.enabled = true;
+        Uanimator.enabled = true;
         animator.speed = 1;
         checkMouse.transform.position = OGpos;
     }
