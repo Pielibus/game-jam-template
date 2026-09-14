@@ -11,8 +11,8 @@ public class RoundRunningState : StateNode<List<PlayerController>>
 {
     private List<PlayerController> _players = new();
     private bool _roundEnded = false;
-    public int currentBid = 1;
-    public int currentBidDice = 1;
+    public SyncVar<int> currentBid = new SyncVar<int>(0);
+    public SyncVar<int> currentBidDice = new SyncVar<int>(1);
     public PlayerController playerActive;
     private BidChoice bidChoice;
     private int IndexPlayer;
@@ -41,8 +41,8 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             }
         }
         playerActive = _players.First<PlayerController>();
-        IndexPlayer = 1;
-        StartPlayerRound(playerActive.owner.Value,playerActive, true);
+        IndexPlayer = 0;
+        StartPlayerRound(playerActive.owner.Value,playerActive, true, currentBid.value, currentBidDice.value);
 
     }
 
@@ -57,11 +57,11 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     }
 
     [TargetRpc]
-    void StartPlayerRound(PlayerID playerID, PlayerController player, bool first)
+    void StartPlayerRound(PlayerID playerID, PlayerController player, bool first, int bid, int bidDice)
     {
-        Debug.Log(player.owner.Value + " Has start Round");
+        Debug.Log("Next player start bid is " + bid + " "+ bidDice);
         bidChoice = GameObject.FindGameObjectWithTag("RoundView").GetComponent<BidChoice>();
-        bidChoice.StartRound(player.owner.Value, player ,currentBid + 1, currentBidDice, first);
+        bidChoice.StartRound(player.owner.Value, player ,bid + 1, bidDice, first);
         
     }
     [ServerRpc]
@@ -69,8 +69,9 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     {
         if(player == playerActive)
         {
-            currentBid = bid;
-            currentBidDice = bidDice;
+            Debug.Log("bid reiceved "+ bid + " " + bidDice);
+            currentBid.value = bid;
+            currentBidDice.value = bidDice;
             
             IndexPlayer += 1;
             if(_players.Count - 1 < IndexPlayer)
@@ -78,7 +79,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             Debug.Log(IndexPlayer + " "+ _players.Count);
             lastPlayer = playerActive;
             playerActive = _players[IndexPlayer];
-            StartPlayerRound(playerActive.owner.Value,playerActive, false);
+            StartPlayerRound(playerActive.owner.Value,playerActive, false, bid, bidDice);
             Debug.Log(player.owner.Value + " Has End Round");
         }
     }
@@ -106,14 +107,15 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             currentDicesCount.Clear();
             numberChecker.dicesCount.Clear();
             Results.Clear();
-            currentBid =0;
-            currentBidDice = 1;
+            currentBid.value = 0;
+            currentBidDice.value = 1;
             IndexPlayer += 1;
             if(_players.Count - 1 < IndexPlayer)
                 IndexPlayer = 0;
+            playerActive = _players[IndexPlayer];
 
             
-            StartPlayerRound(playerActive.owner.Value, playerActive, true);
+            StartPlayerRound(playerActive.owner.Value, playerActive, true, currentBid.value, currentBidDice.value);
 
         }
     }

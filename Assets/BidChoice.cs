@@ -40,6 +40,7 @@ public class BidChoice : NetworkBehaviour
     [TargetRpc]
     public void StartRound(PlayerID playerID, PlayerController playerController, int currentBid, int currentBidDice, bool first)
     {
+        Debug.Log("Current bid is " + bid + " "+ bidDice);
         Main.enabled = true;
         mainController = playerController;
         Cursor.lockState = CursorLockMode.None;
@@ -89,6 +90,7 @@ public class BidChoice : NetworkBehaviour
     }
     void ConfirmChoice()
     {
+        Debug.Log("Sending bid " + bid + " "+ bidDice);
         Main.enabled = false;
         roundRunningState.EndRound(mainController, bid, bidDice);
         Cursor.lockState = CursorLockMode.Locked;

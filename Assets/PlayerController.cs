@@ -10,6 +10,10 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] public GameObject[] AllDice;
     [SerializeField] public GameObject Gobelet;
     [SerializeField] public GameObject nose;
+    [SerializeField] public Transform center;
+    [SerializeField] public Transform GobeletPhysic;
+    [SerializeField] public GameObject Wall;
+    [SerializeField] public GameObject Close;
     private RoundRunningState roundRunningState;
     
     private NumberChecker numberChecker;
@@ -17,20 +21,6 @@ public class PlayerController : NetworkBehaviour
     {
         numberChecker = GameObject.FindGameObjectWithTag("Ground").GetComponent<NumberChecker>();
         roundRunningState = GameObject.FindAnyObjectByType<RoundRunningState>();
-    }
-    public void launchRolling()
-    {
-        if(roundRunningState.Running)
-            return;
-
-        // //Debug.Log("Launching dices");
-        // numberChecker.dicesCount.Clear();
-        // foreach (var dice in AllDice)
-        // {
-        //     dice.GetComponent<DiceRoll>().Roll();
-        // }
-        Gobelet.GetComponent<RollGobelet>().StartRoll();
-        
     }
     [TargetRpc]
     public void StartRolling(PlayerID playerID)

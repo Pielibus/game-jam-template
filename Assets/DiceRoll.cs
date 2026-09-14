@@ -1,12 +1,14 @@
 using System;
+using PurrNet;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-public class DiceRoll : MonoBehaviour
+public class DiceRoll : NetworkBehaviour
 {
     [SerializeField] private float maxRandomForce = 100, startRollingForce = 200;
+    [SerializeField] private Transform center;
 
     public void Roll()
     {       GetComponent<Rigidbody>().isKinematic = false;
@@ -16,5 +18,15 @@ public class DiceRoll : MonoBehaviour
             GetComponent<Rigidbody>().AddForce(Vector3.up * startRollingForce);
             GetComponent<Rigidbody>().AddTorque(forceX, forceY, forceZ);  
         
+    }
+    void LateUpdate()
+    {
+        if(!isServer)
+            return;
+        Debug.Log((transform.position - center.position).magnitude + " " + transform.name);
+        if((transform.position - center.position).magnitude > 0.4)
+        {
+            transform.position = center.position;
+        }
     }
 }
