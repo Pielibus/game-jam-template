@@ -9,6 +9,7 @@ public class RollDiceState : StateNode<List<PlayerController>>
 {
     private float time;
     private bool Stopped = false;
+    [SerializeField] NumberChecker numberChecker;
     private List<PlayerController> playerControllers = new List<PlayerController>();
     public override void Enter(List<PlayerController> data, bool asServer)
     {
@@ -22,7 +23,9 @@ public class RollDiceState : StateNode<List<PlayerController>>
         {
             if(player.owner.HasValue)
             {
-                player.center.parent = player.GobeletPhysic;
+                player.center1.parent = player.GobeletPhysic;
+                player.center2.parent = player.GobeletPhysic;
+                player.center3.parent = player.GobeletPhysic;
                 player.StartRolling(player.owner.Value);
             }
         }
@@ -34,9 +37,10 @@ public class RollDiceState : StateNode<List<PlayerController>>
         {
             return;
         }
-        if(Time.fixedTime - time > 5 && Stopped == false)
+        if(Time.fixedTime - time > 10 && Stopped == false)
         {
             Stopped = true;
+            numberChecker.dicesCount.Clear();
             foreach (var player in playerControllers)
             {
                 if(player.owner.HasValue)
@@ -45,13 +49,15 @@ public class RollDiceState : StateNode<List<PlayerController>>
                 }
             }
         }
-        if(Time.fixedTime - time > 10)
+        if(Time.fixedTime - time > 12)
         {
             foreach (var player in playerControllers)
             {
                 if(player.owner.HasValue)
                 {
-                    player.center.parent = null;
+                    player.center1.parent = null;
+                    player.center2.parent = null;
+                    player.center3.parent = null;
                     player.Wall.GetComponent<MeshCollider>().enabled = true;
                     player.Close.GetComponent<BoxCollider>().enabled = false;
                 }

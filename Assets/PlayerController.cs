@@ -10,7 +10,9 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] public GameObject[] AllDice;
     [SerializeField] public GameObject Gobelet;
     [SerializeField] public GameObject nose;
-    [SerializeField] public Transform center;
+    [SerializeField] public Transform center1;
+    [SerializeField] public Transform center2;
+    [SerializeField] public Transform center3;
     [SerializeField] public Transform GobeletPhysic;
     [SerializeField] public GameObject Wall;
     [SerializeField] public GameObject Close;

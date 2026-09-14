@@ -8,7 +8,9 @@ using Random = UnityEngine.Random;
 public class DiceRoll : NetworkBehaviour
 {
     [SerializeField] private float maxRandomForce = 100, startRollingForce = 200;
-    [SerializeField] private Transform center;
+    [SerializeField] public Transform center1;
+    [SerializeField] public Transform center2;
+    [SerializeField] public Transform center3;
 
     public void Roll()
     {       GetComponent<Rigidbody>().isKinematic = false;
@@ -23,10 +25,14 @@ public class DiceRoll : NetworkBehaviour
     {
         if(!isServer)
             return;
-        Debug.Log((transform.position - center.position).magnitude + " " + transform.name);
-        if((transform.position - center.position).magnitude > 0.4)
+        if((transform.position - center1.position).magnitude > 0.4 && (transform.position - center2.position).magnitude > 0.4 && (transform.position - center3.position).magnitude > 0.4)
         {
-            transform.position = center.position;
+            Transform closest = center1;
+            if((transform.position - center2.position).magnitude > (transform.position - closest.position).magnitude)
+                closest = center2;
+            if((transform.position - center3.position).magnitude > (transform.position - closest.position).magnitude)
+                closest = center3;
+            transform.position = closest.position;
         }
     }
 }
