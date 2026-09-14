@@ -1,6 +1,8 @@
 using System;
 using PurrNet;
 using TMPro;
+using Unity.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,90 +11,129 @@ public class BidChoice : NetworkBehaviour
 {
     private int bid = 1;
     private int bidDice = 1;
-    [SerializeField] private Canvas Main;
-    [SerializeField] private Button plusBid;
-    [SerializeField] private Button minusBid;
-    [SerializeField] private Button plusBidDice;
-    [SerializeField] private Button minusBidDice;
-    [SerializeField] private TextMeshProUGUI textBid;
-    [SerializeField] private TextMeshProUGUI textBidDice;
-    [SerializeField] private Button Confirm;
-    [SerializeField] private Button Bluff;
     [SerializeField] private RoundRunningState roundRunningState;
-    public int CurrentBid, CurrentBidDIce;
-    private PlayerController mainController;
-    void Start()
-    {
-        plusBid.onClick.AddListener(delegate {ChangeBid(true); });
-        minusBid.onClick.AddListener(delegate {ChangeBid(false); });
-        minusBidDice.onClick.AddListener(delegate {ChangeBidDice(false); });
-        plusBidDice.onClick.AddListener(delegate {ChangeBidDice(true); });
-        Confirm.onClick.AddListener(ConfirmChoice);
-        Bluff.onClick.AddListener(BluffChoice);
-    }
+    [SerializeField] private TextMeshPro Bid;
+    [SerializeField] private TextMeshPro ShowBid;
+    [SerializeField] private TextMeshPro Bluff;
+    [SerializeField] private TextMeshPro Minus;
+    [SerializeField] private TextMeshPro Plus;
+    [SerializeField] private TextMeshPro Confirm;
+    [SerializeField] private GameObject Dice;
+    [SerializeField] public Dictionary<int, Vector3> faces = new();
+    public Vector3 targetAngle;
 
-    private void BluffChoice()
+    private Vector3 currentAngle;
+    private PlayerController player;
+    public int CurrentBid, CurrentBidDice;
+    private PlayerController mainController;
+
+    public void ListenClick(string button)
     {
-        Main.enabled = false;
-        roundRunningState.EndGame(mainController);
-        Cursor.lockState = CursorLockMode.Locked;
+        if(button == "Bid")
+        {
+            if (Bid.enabled)
+            {
+                Bid.enabled = false;
+                Minus.enabled = true;
+                Plus.enabled = true;
+                ShowBid.enabled = true;
+                Confirm.enabled = true;
+                Dice.SetActive(true);
+            }
+            
+        }
+        if(button == "Bluff")
+        {
+            if (Bluff.enabled)
+            {
+                roundRunningState.EndGame(mainController);
+                gameObject.SetActive(false);
+            }
+            
+        }
+        if(button == "Minus")
+        {
+            if (Minus.enabled)
+            {
+                if(bid > CurrentBid)
+                    bid -= 1;
+            }
+            
+        }
+        if(button == "Plus")
+        {
+            if (Plus.enabled)
+            {
+                bid += 1;
+            }
+        }
+        if(button == "Dice")
+        {
+            if(bidDice >= 6)
+            {
+                bidDice = 1;
+            }
+            else
+            {
+                bidDice += 1;
+            }
+            StartRotation(mainController, bidDice, bid);
+        }
+        if(button == "Confirm")
+        {
+            if(Confirm.enabled)
+            {
+                roundRunningState.EndRound(mainController, bid, bidDice);
+                gameObject.SetActive(false);
+            }
+                
+        }
+        ShowBid.text = bid.ToString();
+    }
+    public void StartRotation(PlayerController plr, int bidDice, int bid)
+    {
+        player = plr;
+        currentAngle = Dice.transform.eulerAngles;
+        targetAngle = faces[bidDice];
+        targetAngle.y += player.OGRotation.y;
+    }
+    public void Update()
+    {
+        if(!player)
+            return;
+
+        currentAngle = new Vector3(
+            Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime),
+            Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime),
+            Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime));
+
+        Dice.transform.eulerAngles = currentAngle;
     }
     [TargetRpc]
     public void StartRound(PlayerID playerID, PlayerController playerController, int currentBid, int currentBidDice, bool first)
     {
-        Debug.Log("Current bid is " + bid + " "+ bidDice);
-        Main.enabled = true;
+
+        Bluff.enabled = true;
+        Bid.enabled = true;
+        Minus.enabled = false;
+        Plus.enabled = false;
+        Confirm.enabled = false;
+        ShowBid.enabled = false;
+        Dice.SetActive(false);
         mainController = playerController;
-        Cursor.lockState = CursorLockMode.None;
         CurrentBid = currentBid;
-        CurrentBidDIce = currentBidDice;
+        CurrentBidDice = currentBidDice;
         bid = currentBid;
         bidDice = currentBidDice;
-        textBidDice.text = bidDice.ToString();
-        textBid.text = bid.ToString();
+        StartRotation(mainController, bidDice, bid);
         if(first)
         {
-            Bluff.gameObject.SetActive(false);
+            Bluff.enabled = false;
         }
         else  
         {
-            Bluff.gameObject.SetActive(true);
+            Bluff.enabled = true;
         }
 
-    }
-
-    void ChangeBid(bool plus)
-    {
-        if(plus)
-        {
-            bid += 1;
-        }
-        else
-        {
-            if(bid > CurrentBid)
-                bid -= 1;
-        }
-        textBid.text = bid.ToString();
-    }
-    void ChangeBidDice(bool plus)
-    {
-        if(plus)
-        {
-            if(bidDice < 6)
-                bidDice += 1;
-        }
-        else
-        {
-            if(bidDice > 1)
-            bidDice -= 1;
-        }
-        textBidDice.text = bidDice.ToString();
-    }
-    void ConfirmChoice()
-    {
-        Debug.Log("Sending bid " + bid + " "+ bidDice);
-        Main.enabled = false;
-        roundRunningState.EndRound(mainController, bid, bidDice);
-        Cursor.lockState = CursorLockMode.Locked;
     }
 }

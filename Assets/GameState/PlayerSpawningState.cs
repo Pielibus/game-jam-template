@@ -43,6 +43,7 @@ public class PlayerSpawningState : StateNode
             newPlayer.GiveOwnership(player);
             playerCharacters[player] = newPlayer.gameObject;
             spawnedPlayers.Add(newPlayer);
+            newPlayer.OGRotation = spawnPoint.rotation.eulerAngles;
             GameObject gobelet = newPlayer.transform.Find("Gobelet").gameObject;
             GameObject wall = gobelet.transform.Find("Wall").gameObject;
             gobelet.transform.parent = null;
