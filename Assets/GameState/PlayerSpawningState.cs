@@ -43,12 +43,13 @@ public class PlayerSpawningState : StateNode
             newPlayer.GiveOwnership(player);
             playerCharacters[player] = newPlayer.gameObject;
             spawnedPlayers.Add(newPlayer);
-            newPlayer.OGRotation = spawnPoint.rotation.eulerAngles;
             GameObject gobelet = newPlayer.transform.Find("Gobelet").gameObject;
             GameObject wall = gobelet.transform.Find("Wall").gameObject;
             gobelet.transform.parent = null;
             wall.transform.parent = null;
             SetClient(player, newPlayer);
+            newPlayer.OGRotation = spawnPoint.rotation.eulerAngles;
+            newPlayer.spawnerBid.value = spawnPoint.Find("BidSpawn").position;
             currentSpawnIndex++;
         }
         
@@ -68,7 +69,6 @@ public class PlayerSpawningState : StateNode
         player.nose.GetComponent<MeshRenderer>().enabled = false;
         player.transform.Find("Main Camera").gameObject.SetActive(true);
     }
-
     public override void Exit(bool asServer)
     {
         base.Exit(asServer);

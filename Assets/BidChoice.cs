@@ -19,7 +19,9 @@ public class BidChoice : NetworkBehaviour
     [SerializeField] private TextMeshPro Plus;
     [SerializeField] private TextMeshPro Confirm;
     [SerializeField] private GameObject Dice;
+    [SerializeField] private Transform ParentDice;
     [SerializeField] public Dictionary<int, Vector3> faces = new();
+    [SerializeField] public float speed;
     public Vector3 targetAngle;
 
     private Vector3 currentAngle;
@@ -33,12 +35,7 @@ public class BidChoice : NetworkBehaviour
         {
             if (Bid.enabled)
             {
-                Bid.enabled = false;
-                Minus.enabled = true;
-                Plus.enabled = true;
-                ShowBid.enabled = true;
-                Confirm.enabled = true;
-                Dice.SetActive(true);
+                OpenBid();
             }
             
         }
@@ -47,7 +44,7 @@ public class BidChoice : NetworkBehaviour
             if (Bluff.enabled)
             {
                 roundRunningState.EndGame(mainController);
-                gameObject.SetActive(false);
+                CloseBid();
             }
             
         }
@@ -83,19 +80,21 @@ public class BidChoice : NetworkBehaviour
         {
             if(Confirm.enabled)
             {
+                CloseBid();
+                Debug.Log("end Round");
                 roundRunningState.EndRound(mainController, bid, bidDice);
-                gameObject.SetActive(false);
             }
                 
         }
-        ShowBid.text = bid.ToString();
+        UpdateUI(bid);
+
     }
     public void StartRotation(PlayerController plr, int bidDice, int bid)
     {
         player = plr;
-        currentAngle = Dice.transform.eulerAngles;
+        currentAngle = Dice.transform.localEulerAngles;
+        
         targetAngle = faces[bidDice];
-        targetAngle.y += player.OGRotation.y;
     }
     public void Update()
     {
@@ -103,16 +102,34 @@ public class BidChoice : NetworkBehaviour
             return;
 
         currentAngle = new Vector3(
-            Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime),
-            Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime),
-            Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime));
+            Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime * speed),
+            Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime * speed),
+            Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime * speed));
 
-        Dice.transform.eulerAngles = currentAngle;
+        Dice.transform.localEulerAngles = currentAngle;
     }
-    [TargetRpc]
+    [ObserversRpc]
     public void StartRound(PlayerID playerID, PlayerController playerController, int currentBid, int currentBidDice, bool first)
     {
+        Debug.Log("StartRound");
+        mainController = playerController;
+        Open(first, mainController);
+        CurrentBid = currentBid;
+        CurrentBidDice = currentBidDice;
+        bid = currentBid;
+        bidDice = currentBidDice;
 
+    }
+    [ObserversRpc]
+    private void UpdateUI(int bidSend)
+    {
+       ShowBid.text = bidSend.ToString(); 
+    }
+    private void Open(bool first, PlayerController mainController)
+    {
+        Bid.GetComponent<BoxCollider>().enabled = true;
+        Bid.gameObject.SetActive(true);
+        Bluff.gameObject.SetActive(true);
         Bluff.enabled = true;
         Bid.enabled = true;
         Minus.enabled = false;
@@ -120,12 +137,11 @@ public class BidChoice : NetworkBehaviour
         Confirm.enabled = false;
         ShowBid.enabled = false;
         Dice.SetActive(false);
-        mainController = playerController;
-        CurrentBid = currentBid;
-        CurrentBidDice = currentBidDice;
-        bid = currentBid;
-        bidDice = currentBidDice;
+        transform.position = mainController.spawnerBid.value;
+        //transform.eulerAngles = mainController.SpawnerBid.eulerAngles;
         StartRotation(mainController, bidDice, bid);
+        
+        
         if(first)
         {
             Bluff.enabled = false;
@@ -134,6 +150,27 @@ public class BidChoice : NetworkBehaviour
         {
             Bluff.enabled = true;
         }
-
+    }
+    [ObserversRpc]
+    private void OpenBid()
+    {
+        Bid.enabled = false;
+        Bid.GetComponent<BoxCollider>().enabled = false;
+        Minus.enabled = true;
+        Plus.enabled = true;
+        ShowBid.enabled = true;
+        Confirm.enabled = true;
+        Dice.SetActive(true);
+    }
+    [ObserversRpc]
+    private void CloseBid()
+    {
+        Bid.gameObject.SetActive(false);
+        Bluff.gameObject.SetActive(false);
+        Minus.enabled = false;
+        Plus.enabled = false;
+        Confirm.enabled = false;
+        ShowBid.enabled = false;
+        Dice.SetActive(false);
     }
 }
