@@ -32,7 +32,6 @@ void OnMouseDrag()
     Vector3 curScreenPoint = new Vector3(look.x, look.y, screenPoint.z);
 
     Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-    Debug.Log(transform.position + " "+ curPosition);
     Move(curScreenPoint);
 
 }
