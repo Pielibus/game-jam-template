@@ -10,6 +10,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] public GameObject[] AllDice;
     [SerializeField] public GameObject Gobelet;
     [SerializeField] public GameObject nose;
+    [SerializeField] public GameObject head;
     [SerializeField] public Transform center1;
     [SerializeField] public Transform center2;
     [SerializeField] public Transform center3;
@@ -21,6 +22,7 @@ public class PlayerController : NetworkBehaviour
     private NumberChecker numberChecker;
     public Vector3 OGRotation;
     public SyncVar<Vector3> spawnerBid = new SyncVar<Vector3>(Vector3.zero, ownerAuth:false);
+    public SyncVar<Vector3> spawnerBidRotation = new SyncVar<Vector3>(Vector3.zero, ownerAuth:false);
     void Awake()
     {
         numberChecker = GameObject.FindGameObjectWithTag("Ground").GetComponent<NumberChecker>();

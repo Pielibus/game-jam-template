@@ -19,6 +19,7 @@ public class RotateDice : MonoBehaviour
         physicBid.text = bid.ToString();
         targetAngle.y += player.OGRotation.y;
         physicBid.transform.parent.eulerAngles = new Vector3(physicBid.transform.parent.eulerAngles.x, player.OGRotation.y, physicBid.transform.parent.eulerAngles.z);
+        Debug.Log("Correct");
     }
 
     public void Update()

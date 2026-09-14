@@ -13,7 +13,6 @@ public class CheckGobelet : MonoBehaviour
 
     public void Check(bool Up)
     {
-        Debug.Log(Up);
         if(Up)
         {
             animator.SetTrigger("Check");

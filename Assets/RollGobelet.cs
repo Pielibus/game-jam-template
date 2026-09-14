@@ -16,7 +16,6 @@ public class RollGobelet : MonoBehaviour
     private bool RollLock = false;
     public void StartRoll()
     {
-        Debug.Log("StartingRoll");
         animator.SetTrigger("StartRoll");
         wall.enabled = false;
         close.enabled = true;
