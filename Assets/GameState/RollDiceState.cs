@@ -43,7 +43,7 @@ public class RollDiceState : StateNode<List<PlayerController>>
         {
             return;
         }
-        if(Time.fixedTime - time > 10 && Stopped == false)
+        if(Time.fixedTime - time > 200 && Stopped == false)
         {
             Stopped = true;
             numberChecker.dicesCount.Clear();
@@ -55,7 +55,7 @@ public class RollDiceState : StateNode<List<PlayerController>>
                 }
             }
         }
-        if(Time.fixedTime - time > 12)
+        if(Time.fixedTime - time > 200)
         {
             foreach (var player in playerControllers)
             {

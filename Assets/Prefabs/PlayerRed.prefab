@@ -2044,7 +2044,7 @@ MonoBehaviour:
   _syncPosition: 1
   _syncRotation: 1
   _syncScale: 1
-  _syncParent: 1
+  _syncParent: 0
   _interpolateSettings: 1
   _minBufferSize: 1
   _maxBufferSize: 2
@@ -2303,7 +2303,7 @@ MonoBehaviour:
   _syncPosition: 1
   _syncRotation: 1
   _syncScale: 1
-  _syncParent: 1
+  _syncParent: 0
   _interpolateSettings: 1
   _minBufferSize: 1
   _maxBufferSize: 2
@@ -2839,7 +2839,7 @@ MonoBehaviour:
   _syncPosition: 1
   _syncRotation: 1
   _syncScale: 1
-  _syncParent: 1
+  _syncParent: 0
   _interpolateSettings: 1
   _minBufferSize: 1
   _maxBufferSize: 2
@@ -3098,7 +3098,7 @@ MonoBehaviour:
   _syncPosition: 1
   _syncRotation: 1
   _syncScale: 1
-  _syncParent: 1
+  _syncParent: 0
   _interpolateSettings: 1
   _minBufferSize: 1
   _maxBufferSize: 2
@@ -3329,6 +3329,30 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: 5d7c651f8e2c54de2be7e6c5b57f9974, type: 2}
+    - target: {fileID: 3014238100075963473, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _ownerAuth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014238100075963473, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _syncParent
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014238100075963473, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _syncPosition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014238100075963473, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _syncRotation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014238100075963473, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _interpolateSettings
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014238100075963473, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _interpolationTiming
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3123376177780171710, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: animator
       value: 
@@ -3381,6 +3405,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.35
       objectReference: {fileID: 0}
+    - target: {fileID: 3495207326948966417, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: m_Name
+      value: gobeletPhysic
+      objectReference: {fileID: 0}
     - target: {fileID: 3728857570547553999, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.01
@@ -3388,6 +3416,14 @@ PrefabInstance:
     - target: {fileID: 3772037339147873132, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4086845234364876839, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _ownerAuth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216284510348270804, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _ownerAuth
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4308440879956400811, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: m_LocalScale.x
@@ -3654,6 +3690,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6330190750339829793, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+      propertyPath: _syncParent
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330190750339829793, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: _syncPosition
       value: 1
       objectReference: {fileID: 0}
@@ -3842,6 +3882,8 @@ PrefabInstance:
     - {fileID: 7663701488780265858, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
     - {fileID: 3772037339147873132, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
     - {fileID: 8585797536704926465, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+    - {fileID: 4216284510348270804, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
+    - {fileID: 4086845234364876839, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2876590164926896959, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
     - {fileID: 6389896860688284594, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}

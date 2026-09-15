@@ -222,11 +222,16 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         Debug.Log(removeDice.position.y);
         var explosion = Instantiate(prefabExplosion, removeDice.position, removeDice.rotation);
         ParticleSystem[] childArray = explosion.GetComponentsInChildren<ParticleSystem>();
-        foreach (var child in childArray)
+        explode(childArray);
+        Destroy(removeDice.gameObject);
+    }
+    [ObserversRpc]
+    void explode(ParticleSystem[] childArray)
+    {
+       foreach (var child in childArray)
         {
             child.Play();
-        }
-        Destroy(removeDice.gameObject);
+        } 
     }
 
 }
