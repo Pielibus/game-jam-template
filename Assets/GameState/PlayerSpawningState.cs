@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using PurrNet;
 using PurrNet.StateMachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerSpawningState : StateNode
 {
@@ -62,10 +63,18 @@ public class PlayerSpawningState : StateNode
     private void SetClient(PlayerID playerID, PlayerController player)
     {
         var Cameras = GameObject.FindGameObjectsWithTag("MainCamera");
+        var allInputs = FindObjectsByType<PlayerInput>();
         foreach (GameObject camera in Cameras)
         {
             camera.SetActive(false);
         }
+        foreach (var input in allInputs)
+        {
+            if (input != player.GetComponent<PlayerInput>())
+                input.enabled = false;
+        }
+        var localInput = player.GetComponent<PlayerInput>();
+        localInput.enabled = true;
         player.head.GetComponent<MeshRenderer>().enabled = false;
         player.head.transform.parent.Find("Main Camera").gameObject.SetActive(true);
     }

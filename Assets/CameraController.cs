@@ -1,4 +1,5 @@
 using PurrNet;
+using PurrNet.Lobby;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,11 +13,43 @@ public class CameraController : NetworkBehaviour
     public float maxClampy = 90f;
     public float maxClampx = 270f;
     private Vector3 initialRotation;
+    private bool _inputBlocked;
+    private PlayerInput _playerInput;
+    private InputAction _lookAction;
+
+    private void Awake()
+    {
+        _playerInput = transform.parent.GetComponentInParent<PlayerInput>();
+        _lookAction = _playerInput.actions.FindAction("Look");
+        Debug.Log(_playerInput + " "+ _lookAction);
+    }
+
+    private void OnEnable()
+    {
+        PauseMenuView.onOpened += BlockInput;
+        PauseMenuView.onClosed += AllowInput;
+    }
+
+    private void OnDisable()
+    {
+        PauseMenuView.onOpened -= BlockInput;
+        PauseMenuView.onClosed -= AllowInput;
+    }
+    private void BlockInput()
+    {
+        _inputBlocked = true;
+    }
+
+    private void AllowInput()
+    {
+        _inputBlocked = false;
+    }
+
     
     void Start()
     {
         if(!isOwner)
-         return;
+            return;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
         initialRotation = Head.transform.localRotation.eulerAngles;
@@ -25,7 +58,10 @@ public class CameraController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 look = lookInput.action.ReadValue<Vector2>();
+
+        if(_inputBlocked || !isOwner || _playerInput == null || !_playerInput.enabled)
+            return;
+        Vector2 look = _lookAction.ReadValue<Vector2>();
         if (Mouse.current != null && Mouse.current.delta.IsActuated())
         {
             look *= mouseSensitivity;

@@ -36,9 +36,9 @@ public class DiceRoll : NetworkBehaviour
         if((transform.position - center1.position).magnitude > 0.4 && (transform.position - center2.position).magnitude > 0.4 && (transform.position - center3.position).magnitude > 0.4)
         {
             Transform closest = center1;
-            if((transform.position - center2.position).magnitude > (transform.position - closest.position).magnitude)
+            if((transform.position - center2.position).magnitude < (transform.position - closest.position).magnitude)
                 closest = center2;
-            if((transform.position - center3.position).magnitude > (transform.position - closest.position).magnitude)
+            if((transform.position - center3.position).magnitude < (transform.position - closest.position).magnitude)
                 closest = center3;
             transform.position = closest.position;
         }

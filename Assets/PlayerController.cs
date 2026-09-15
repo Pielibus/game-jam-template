@@ -41,8 +41,11 @@ public class PlayerController : NetworkBehaviour
 
     public void CheckGobelet(InputAction.CallbackContext context)
     {
-            Gobelet.GetComponent<CheckGobelet>().Check(context.performed); 
-          
+        if(!isOwner)
+            return;
+
+        Debug.Log("Checked on " + owner.Value);
+        Gobelet.GetComponent<CheckGobelet>().Check(owner.Value, context.performed); 
     }
     
 }
