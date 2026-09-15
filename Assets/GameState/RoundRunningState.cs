@@ -18,10 +18,11 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     public SyncVar<int> currentBidDice = new SyncVar<int>(1);
     public PlayerController playerActive;
     private BidChoice bidChoice;
-    private int IndexPlayer;
+    private int IndexPlayer = 0;
     private PlayerController lastPlayer;
     public List<int> Results = new List<int>{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     [SerializeField] private PlayerSpawningState playerSpawningState;
+    [SerializeField] private RollDiceState rollDiceState;
     [SerializeField] private NumberChecker numberChecker;
     [SerializeField] private RotateDice rotateDice;
     [SerializeField] private Transform prefabExplosion;
@@ -37,7 +38,8 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         }
 
         Running = true;
-        _players.Clear();
+        _players = new List<PlayerController>();
+        Debug.Log(data.Count);
         foreach (var player in data)
         {
             if(player.owner.HasValue)
@@ -46,8 +48,8 @@ public class RoundRunningState : StateNode<List<PlayerController>>
                 _players.Add(player);
             }
         }
-        playerActive = _players.First<PlayerController>();
-        IndexPlayer = 0;
+        if(!playerActive)
+            playerActive = _players.First<PlayerController>();
         StartPlayerRound(playerActive.owner.Value,playerActive, true, currentBid.value, currentBidDice.value);
 
     }
@@ -69,6 +71,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             currentBidDice.value = bidDice;
             
             IndexPlayer += 1;
+            Debug.Log(_players.Count + " "+ IndexPlayer);
             if(_players.Count - 1 < IndexPlayer)
                 IndexPlayer = 0;
             lastPlayer = playerActive;
@@ -127,7 +130,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
                 Debug.Log("Bluffing you win");
                 loseDice(lastPlayer);
             }
-            yield return new WaitForSeconds(100f);
+            yield return new WaitForSeconds(5f);
             currentDicesCount.Clear();
             numberChecker.dicesCount.Clear();
             Results = new List<int>{ 0, 0, 0, 0, 0, 0, 0,};
@@ -137,9 +140,23 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             if(_players.Count - 1 < IndexPlayer)
                 IndexPlayer = 0;
             playerActive = _players[IndexPlayer];
-
-            
-            StartPlayerRound(playerActive.owner.Value, playerActive, true, currentBid.value, currentBidDice.value);
+            foreach (var plr in _players)
+            {
+                if(plr.owner.HasValue)
+                {
+                    Anim(plr.owner.Value, plr, false);
+                }
+            }
+            if (rollDiceState == null)
+            {
+                Debug.LogError("RollDiceState is not assigned on RoundRunningState.");
+                yield break;
+            }
+            yield return new WaitForSeconds(3f);
+            Debug.Log(_players.Count);
+            bool stateChanged = machine.SetState(rollDiceState, _players);
+            Debug.Log($"Set roll dice state: {stateChanged}");
+            //StartPlayerRound(playerActive.owner.Value, playerActive, true, currentBid.value, currentBidDice.value);
 
         }
     }
@@ -173,6 +190,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         }
         playerController.AllDice.RemoveAt(System.Array.IndexOf (playerController.AllDice, diceChoose));
         removeDice = diceChoose.transform;
+        disable = false;
         
     }
     private bool disable = false;
@@ -184,16 +202,19 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         }
         if(!disable)
         {
-            removeDice.GetComponent<Rigidbody>().isKinematic = true;
-            removeDice.GetComponent<Rigidbody>().detectCollisions = false;
-            Destroy(removeDice.GetComponent<DiceRoll>());
+            Rigidbody diceRigidbody = removeDice.GetComponent<Rigidbody>();
+            diceRigidbody.isKinematic = true;
+            diceRigidbody.detectCollisions = false;
+            diceRigidbody.linearVelocity = Vector3.zero;
+            diceRigidbody.angularVelocity = Vector3.zero;
+            removeDice.GetComponent<DiceRoll>().enabled = false;
             disable = true;
         }
         
-        if(removeDice.position.y < 7)
+        if(removeDice.position.y < 4.5)
         {
             Debug.Log(removeDice.position.y);
-            float speed = 0.005f;
+            float speed = 0.01f;
             removeDice.position = new Vector3(removeDice.position.x, removeDice.position.y + speed, removeDice.position.z);
             removeDice.eulerAngles = new Vector3(removeDice.eulerAngles.x + speed, removeDice.eulerAngles.y + speed, removeDice.eulerAngles.z + speed);
             return;
@@ -205,11 +226,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         {
             child.Play();
         }
-        Destroy(removeDice);
-        
-
-        
-
+        Destroy(removeDice.gameObject);
     }
 
 }
