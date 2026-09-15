@@ -221,16 +221,19 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         }
         Debug.Log(removeDice.position.y);
         var explosion = Instantiate(prefabExplosion, removeDice.position, removeDice.rotation);
-        ParticleSystem[] childArray = explosion.GetComponentsInChildren<ParticleSystem>();
-        explode(childArray);
+        Transform[] childArray = explosion.GetComponentsInChildren<Transform>();
+        explode(explosion);
         Destroy(removeDice.gameObject);
     }
     [ObserversRpc]
-    void explode(ParticleSystem[] childArray)
+    void explode(Transform explosion)
     {
+        Debug.Log(explosion +" "+ explosion.GetComponentsInChildren<Transform>());
+        Transform[] childArray = explosion.GetComponentsInChildren<Transform>();
        foreach (var child in childArray)
         {
-            child.Play();
+            if(child.GetComponent<ParticleSystem>())
+                child.GetComponent<ParticleSystem>().Play();
         } 
     }
 

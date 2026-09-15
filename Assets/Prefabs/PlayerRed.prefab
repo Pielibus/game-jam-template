@@ -3331,7 +3331,7 @@ PrefabInstance:
       objectReference: {fileID: 13400000, guid: 5d7c651f8e2c54de2be7e6c5b57f9974, type: 2}
     - target: {fileID: 3014238100075963473, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: _ownerAuth
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3014238100075963473, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: _syncParent
