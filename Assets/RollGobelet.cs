@@ -13,7 +13,6 @@ public class RollGobelet : MonoBehaviour
     [SerializeField] private BoxCollider close;
 
     private Vector3 OGpos;
-    private bool RollLock = false;
     public void StartRoll()
     {
         animator.SetTrigger("StartRoll");
