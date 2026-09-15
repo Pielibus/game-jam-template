@@ -45,6 +45,26 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "PencherGauche",
+                    "type": "Button",
+                    "id": "7a9a3718-17a4-43a9-9c2d-1eea4da93450",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "PencherDroite",
+                    "type": "Button",
+                    "id": "dfb3406d-825d-4f2d-9917-d4fa854dbba6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -232,6 +252,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Check",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8abd5cea-9eb7-4f99-a887-caf405c19e62",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "PencherGauche",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cd5c5ec7-db28-44aa-886e-40884240610e",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "PencherDroite",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
