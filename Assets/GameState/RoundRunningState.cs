@@ -179,8 +179,12 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     
     private void loseDice(PlayerController playerController)
     {
-        Debug.Log(playerController.owner.Value + "Has lost a dice");
+        Debug.Log(playerController.owner.Value + "Has lost a dice and have now " + playerController.AllDice.Length);
         GameObject diceChoose = null;
+        if(playerController.AllDice.Length <= 0)
+        {
+            losePlayer(playerController);
+        }
         foreach (var dice in playerController.AllDice)
         {
             if(dice.gameObject)
@@ -192,6 +196,23 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         removeDice = diceChoose.transform;
         disable = false;
         
+    }
+    private void losePlayer(PlayerController playerController)
+    {
+        Explode(playerController.head.transform.position, playerController.head.transform.rotation);
+        HidePlayer(playerController);
+        _players.Remove(playerController);
+        if(_players.Count <= 1)
+        {
+            machine.SetState(rollDiceState, _players);
+        }
+
+    }
+    [ObserversRpc]
+    private void HidePlayer(PlayerController playerController)
+    {
+        playerController.head.GetComponent<MeshRenderer>().enabled = false;
+        playerController.GobeletPhysic.GetComponent<MeshRenderer>().enabled = false;
     }
     private bool disable = false;
     public override void StateUpdate(bool asServer)
@@ -220,15 +241,13 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             return;
         }
         Debug.Log(removeDice.position.y);
-        var explosion = Instantiate(prefabExplosion, removeDice.position, removeDice.rotation);
-        Transform[] childArray = explosion.GetComponentsInChildren<Transform>();
-        explode(explosion);
+        Explode(removeDice.position, removeDice.rotation);
         Destroy(removeDice.gameObject);
     }
     [ObserversRpc]
-    void explode(Transform explosion)
+    private void Explode(Vector3 position, Quaternion rotation)
     {
-        Debug.Log(explosion +" "+ explosion.GetComponentsInChildren<Transform>());
+        var explosion = Instantiate(prefabExplosion, position, rotation);
         Transform[] childArray = explosion.GetComponentsInChildren<Transform>();
        foreach (var child in childArray)
         {

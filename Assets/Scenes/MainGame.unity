@@ -457,7 +457,7 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _invertedPathToNearestParent: 
   _directChildren: []
-  minPlayer: 1
+  minPlayer: 2
 --- !u!1001 &96485138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3174,10 +3174,6 @@ PrefabInstance:
     - target: {fileID: 3437112128277896092, guid: 31ff1c7bffb254b7899c0dc6d49a2561, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5559337263240591697, guid: 31ff1c7bffb254b7899c0dc6d49a2561, type: 3}
-      propertyPath: m_Name
-      value: gobeletPhysic
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

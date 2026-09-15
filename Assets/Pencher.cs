@@ -9,12 +9,13 @@ public class Pencher : MonoBehaviour
     private bool pencherDroite = false;
     public void StartPencherDroite(InputAction.CallbackContext context)
     {
-        Debug.Log("PencherDroite");
+        
         if(context.performed)
         {
-            if(!pencherGauche)
+            if(!pencherDroite)
             {
-                pencherGauche = true;
+                Debug.Log("PencherDroite");
+                pencherDroite = true;
                 animator.SetTrigger("PencherDroite");
             }
                 
@@ -26,12 +27,13 @@ public class Pencher : MonoBehaviour
     }
     public void StartPencherGauche(InputAction.CallbackContext context)
     {
-        Debug.Log("PencherGauche");
+        
         if(context.performed)
         {
-            if(!pencherDroite)
+            if(!pencherGauche)
             {
-                pencherDroite = true;
+                Debug.Log("PencherGauche");
+                pencherGauche = true;
                 animator.SetTrigger("PencherGauche");
             }
         }
@@ -43,7 +45,8 @@ public class Pencher : MonoBehaviour
     }
     public void PausePencher()
     {
-        animator.speed = 0;
+        if(pencherGauche || pencherDroite)
+            animator.speed = 0;
     }
     public void StopPencher()
     {
