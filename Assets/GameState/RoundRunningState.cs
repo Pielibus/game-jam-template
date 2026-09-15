@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -23,8 +24,10 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     [SerializeField] private PlayerSpawningState playerSpawningState;
     [SerializeField] private NumberChecker numberChecker;
     [SerializeField] private RotateDice rotateDice;
+    [SerializeField] private Transform prefabExplosion;
     [SerializeField] public Dictionary<GameObject, int> currentDicesCount = new();
     public bool Running = false;
+    private Transform removeDice;
     public override void Enter(List<PlayerController> data, bool asServer)
     {
         base.Enter();
@@ -49,15 +52,6 @@ public class RoundRunningState : StateNode<List<PlayerController>>
 
     }
 
-    public override void StateUpdate(bool asServer)
-    {
-        if(!asServer)
-        {
-            return;
-        }
-        
-
-    }
 
     [TargetRpc]
     void StartPlayerRound(PlayerID playerID, PlayerController player, bool first, int bid, int bidDice)
@@ -80,29 +74,50 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             lastPlayer = playerActive;
             playerActive = _players[IndexPlayer];
             StartPlayerRound(playerActive.owner.Value,playerActive, false, bid, bidDice);
-            foreach (var plr in _players)
-            {
-                if(plr.owner.HasValue)
-                {
-                    UpdateBid(plr.owner.Value, plr, currentBid.value, currentBidDice.value);
-                }
-            }
+            UpdateBid(currentBid.value, currentBidDice.value);
         }
     }
     [ServerRpc]
     public void EndGame(PlayerController player)
     {
+        StartCoroutine(EndGameAfterDelay(player));
+    }
+
+    private IEnumerator EndGameAfterDelay(PlayerController player)
+    {
         if(player == playerActive)
         {
+            Debug.Log("EndGame");
             currentDicesCount = numberChecker.dicesCount;
+            float delay = 1.5f;
+            foreach (var plr in _players)
+            {
+                if(plr.owner.HasValue)
+                {
+                    Anim(plr.owner.Value, plr, true);
+                }
+            }
+            yield return new WaitForSeconds(1f);
             foreach (var dice in numberChecker.dicesCount)
             {
-                
-                Results[dice.Value] += 1;
-                Debug.Log(Results[dice.Value]);
-            }
+                if(delay >= 0.2f)
+                    delay -= 0.2f;
 
-            if(Results[currentBidDice] >= currentBid)
+                Results[dice.Value] += 1;
+                if(dice.Value == currentBidDice.value)
+                {
+                    yield return new WaitForSeconds(delay);
+                    HighlightDice(dice.Key.transform.parent.gameObject, true);
+                    UpdateBid(Results[currentBidDice.value], currentBidDice.value);
+                }
+            }
+            yield return new WaitForSeconds(3f);
+            foreach (var dice in numberChecker.dicesCount)
+            {
+                HighlightDice(dice.Key.transform.parent.gameObject, false);
+                UpdateBid(0, 0);
+            }
+            if(Results[currentBidDice.value] >= currentBid.value)
             {
                 Debug.Log("NotBluffing you lost");
                 loseDice(playerActive);
@@ -112,6 +127,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
                 Debug.Log("Bluffing you win");
                 loseDice(lastPlayer);
             }
+            yield return new WaitForSeconds(100f);
             currentDicesCount.Clear();
             numberChecker.dicesCount.Clear();
             Results = new List<int>{ 0, 0, 0, 0, 0, 0, 0,};
@@ -127,16 +143,73 @@ public class RoundRunningState : StateNode<List<PlayerController>>
 
         }
     }
-    [TargetRpc]
-    private void UpdateBid(PlayerID playerID, PlayerController player, int bid, int bidDice)
+    [ObserversRpc]
+    private void UpdateBid(int bid, int bidDice)
     {
-        rotateDice.StartRotation(player, bidDice, bid);
+        rotateDice.StartRotation(bidDice, bid);
+    }
+    [TargetRpc]
+    private void Anim(PlayerID playerID, PlayerController player, bool start)
+    {
+        player.Gobelet.GetComponent<NetworkAnimator>().SetBool("Show", start);
+    }
+    [ObserversRpc]
+    private void HighlightDice(GameObject Dice, bool on)
+    {
+        if(Dice && Dice.GetComponent<Outline>())
+            Dice.GetComponent<Outline>().enabled = on;
     }
     
     private void loseDice(PlayerController playerController)
     {
         Debug.Log(playerController.owner.Value + "Has lost a dice");
-        Destroy(playerController.AllDice[1].gameObject);
-        playerController.AllDice.RemoveAt(1);
+        GameObject diceChoose = null;
+        foreach (var dice in playerController.AllDice)
+        {
+            if(dice.gameObject)
+            {
+                diceChoose = dice;
+            }
+        }
+        playerController.AllDice.RemoveAt(System.Array.IndexOf (playerController.AllDice, diceChoose));
+        removeDice = diceChoose.transform;
+        
     }
+    private bool disable = false;
+    public override void StateUpdate(bool asServer)
+    {
+        if(!asServer || removeDice == null)
+        {
+            return;
+        }
+        if(!disable)
+        {
+            removeDice.GetComponent<Rigidbody>().isKinematic = true;
+            removeDice.GetComponent<Rigidbody>().detectCollisions = false;
+            Destroy(removeDice.GetComponent<DiceRoll>());
+            disable = true;
+        }
+        
+        if(removeDice.position.y < 7)
+        {
+            Debug.Log(removeDice.position.y);
+            float speed = 0.005f;
+            removeDice.position = new Vector3(removeDice.position.x, removeDice.position.y + speed, removeDice.position.z);
+            removeDice.eulerAngles = new Vector3(removeDice.eulerAngles.x + speed, removeDice.eulerAngles.y + speed, removeDice.eulerAngles.z + speed);
+            return;
+        }
+        Debug.Log(removeDice.position.y);
+        var explosion = Instantiate(prefabExplosion, removeDice.position, removeDice.rotation);
+        ParticleSystem[] childArray = explosion.GetComponentsInChildren<ParticleSystem>();
+        foreach (var child in childArray)
+        {
+            child.Play();
+        }
+        Destroy(removeDice);
+        
+
+        
+
+    }
+
 }
