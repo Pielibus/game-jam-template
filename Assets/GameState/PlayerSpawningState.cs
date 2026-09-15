@@ -44,7 +44,7 @@ public class PlayerSpawningState : StateNode
             var newPlayer = Instantiate(prefabPlayer, spawnPoint.position, spawnPoint.rotation);
             newPlayer.spawnerBid.value = spawnPoint.Find("BidSpawn").position;
             newPlayer.spawnerBidRotation.value = spawnPoint.Find("BidSpawn").eulerAngles;
-            newPlayer.GiveOwnership(player);
+            newPlayer.GiveOwnership(player, propagateToChildren: true);
             playerCharacters[player] = newPlayer.gameObject;
             spawnedPlayers.Add(newPlayer);
             GameObject gobelet = newPlayer.transform.Find("Gobelet").gameObject;
