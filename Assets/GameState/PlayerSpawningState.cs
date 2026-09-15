@@ -8,6 +8,7 @@ public class PlayerSpawningState : StateNode
 {
     [SerializeField] private Dictionary<PlayerID, GameObject> playerCharacters = new();
     [SerializeField] private PlayerController prefabPlayer;
+    [SerializeField] private RotateDice rotateDice;
 
     public List<PlayerController> AllPlayers = new List<PlayerController>();
     public List<Transform> spawnPoints = new List<Transform>();
@@ -77,6 +78,7 @@ public class PlayerSpawningState : StateNode
         localInput.enabled = true;
         player.head.GetComponent<MeshRenderer>().enabled = false;
         player.head.transform.parent.Find("Main Camera").gameObject.SetActive(true);
+        rotateDice.player = player;
     }
     public override void Exit(bool asServer)
     {
