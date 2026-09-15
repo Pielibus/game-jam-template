@@ -16,6 +16,8 @@ public bool On = false;
 [SerializeField] public float clampYmax;
 [SerializeField] public float clampXmin;
 [SerializeField] public float clampYmin;
+[SerializeField] public float testY;
+[SerializeField] public float testX;
 
 void OnMouseDown()
 {
@@ -40,10 +42,12 @@ void OnMouseDrag()
 
 }
 
-[ServerRpc]
 void Move(Vector3 curScreenPoint)
     {
-        transform.position = new Vector3(Math.Clamp((transform.position.x - (curScreenPoint.x)/10), clampXmin, clampXmax), Math.Clamp((transform.position.y + (curScreenPoint.y)/10), clampYmin, clampYmax), transform.position.z);
+        transform.position = new Vector3(
+        Math.Clamp(transform.position.x + testX - curScreenPoint.x/10, clampXmin, clampXmax), 
+        Math.Clamp(transform.position.y + testY + curScreenPoint.y/10, clampYmin, clampYmax), 
+        transform.position.z);
     }
 
 }
