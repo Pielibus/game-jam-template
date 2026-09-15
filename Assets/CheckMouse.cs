@@ -12,6 +12,10 @@ private Vector3 screenPoint;
 private Vector3 offset;
 public bool On = false;
 [SerializeField] private InputActionReference lookInput;
+[SerializeField] public float clampXmax;
+[SerializeField] public float clampYmax;
+[SerializeField] public float clampXmin;
+[SerializeField] public float clampYmin;
 
 void OnMouseDown()
 {
@@ -32,14 +36,14 @@ void OnMouseDrag()
     Vector3 curScreenPoint = new Vector3(look.x, look.y, screenPoint.z);
 
     Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-    Move(curScreenPoint);
+    Move(curScreenPoint/2);
 
 }
 
 [ServerRpc]
 void Move(Vector3 curScreenPoint)
     {
-        transform.position = new Vector3(Math.Clamp((transform.position.x - (curScreenPoint.x)/10), -10, 10), transform.position.y, transform.position.z);
+        transform.position = new Vector3(Math.Clamp((transform.position.x - (curScreenPoint.x)/10), clampXmin, clampXmax), Math.Clamp((transform.position.y + (curScreenPoint.y)/10), clampYmin, clampYmax), transform.position.z);
     }
 
 }

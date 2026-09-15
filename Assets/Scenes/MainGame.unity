@@ -3263,6 +3263,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerRed
       objectReference: {fileID: 0}
+    - target: {fileID: 2865613226639903100, guid: 31ff1c7bffb254b7899c0dc6d49a2561, type: 3}
+      propertyPath: clampXmin
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3437112128277896092, guid: 31ff1c7bffb254b7899c0dc6d49a2561, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7077,6 +7081,7 @@ MonoBehaviour:
   playerActive: {fileID: 0}
   Results: 00000000000000000000000000000000000000000000000000000000i
   playerSpawningState: {fileID: 261466381}
+  rollDiceState: {fileID: 1218487398}
   numberChecker: {fileID: 697948587}
   rotateDice: {fileID: 347002391}
   prefabExplosion: {fileID: 6004600221714263232, guid: ad9055245ef084e9ab56eb4848120243, type: 3}
