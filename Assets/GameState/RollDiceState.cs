@@ -8,7 +8,7 @@ using PurrNet;
 public class RollDiceState : StateNode<List<PlayerController>>
 {
     private float time;
-    private bool Stopped = false;
+    public bool Stopped = false;
     [SerializeField] NumberChecker numberChecker;
     private List<PlayerController> playerControllers = new List<PlayerController>();
     public override void Enter(List<PlayerController> data, bool asServer)
@@ -19,6 +19,12 @@ public class RollDiceState : StateNode<List<PlayerController>>
             return;
         playerControllers = data;
         time = Time.fixedTime;
+        Stopped = false;
+        var AllDices = GameObject.FindGameObjectsWithTag("Dice");
+        foreach (var dice in AllDices)
+        {
+            dice.GetComponent<Rigidbody>().isKinematic = false;
+        }
         foreach (var player in data)
         {
             if(player.owner.HasValue)

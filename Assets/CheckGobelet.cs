@@ -3,19 +3,21 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
+using PurrNet;
 
-public class CheckGobelet : MonoBehaviour
+public class CheckGobelet : NetworkBehaviour
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private AnimationClip animation;
+    [SerializeField] private NetworkAnimator animator;
     private bool checking = false;
     private bool asPause = false;
 
-    public void Check(bool Up)
+    [TargetRpc]
+    public void Check(PlayerID playerID, bool Up)
     {
+        Debug.Log(playerID);
         if(Up)
         {
-            animator.SetTrigger("Check");
+            animator.animator.SetTrigger("Check");
             checking = true;
             asPause = false;
         
