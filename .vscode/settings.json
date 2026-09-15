@@ -68,5 +68,8 @@
         "*.slnx": "*.csproj"
     },
     "dotnet.defaultSolution": "game-jam-template.slnx",
-    "dotnet.enableWorkspaceBasedDevelopment": false
+    "dotnet.enableWorkspaceBasedDevelopment": false,
+    "chat.tools.terminal.autoApprove": {
+        "awk": true
+    }
 }
