@@ -10,7 +10,6 @@ public class RotateDice : MonoBehaviour
     private bool start = false;
     private Vector3 currentAngle;
     public PlayerController player;
-    private Quaternion targetRotation;
 
     public void StartRotation(int bidDice, int bid)
     {
@@ -22,12 +21,12 @@ public class RotateDice : MonoBehaviour
         }
         physicBid.enabled = true;
         GetComponent<MeshRenderer>().enabled = true;
-        Quaternion playerRotation = Quaternion.Euler(0f, player.OGRotation.y, 0f);
-        targetRotation = playerRotation * Quaternion.Euler(faces[bidDice]);
         currentAngle = transform.eulerAngles;
-        targetAngle = targetRotation.eulerAngles;
+        targetAngle = faces[bidDice];
         physicBid.text = bid.ToString();
-        physicBid.transform.parent.rotation = playerRotation;
+        Debug.Log(player.OGRotation.y);
+        targetAngle.y += player.OGRotation.y;
+        physicBid.transform.parent.eulerAngles = new Vector3(physicBid.transform.parent.eulerAngles.x, player.OGRotation.y, physicBid.transform.parent.eulerAngles.z);
         start = true;
     }
 
@@ -35,6 +34,12 @@ public class RotateDice : MonoBehaviour
     {
         if(!start)
             return;
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
+        currentAngle = new Vector3(
+            Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime),
+            //Mathf.LerpAngle(player.OGRotation.y + currentAngle.y, player.OGRotation.y + targetAngle.y, Time.deltaTime),
+            Mathf.LerpAngle(currentAngle.y, targetAngle.y, Time.deltaTime),
+            Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime));
+
+        transform.eulerAngles = currentAngle;
     }
 }

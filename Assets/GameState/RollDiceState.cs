@@ -29,7 +29,9 @@ public class RollDiceState : StateNode<List<PlayerController>>
         {
             if(player.owner.HasValue)
             {
-                player.AttachDiceCenters();
+                player.center1.parent = player.GobeletPhysic;
+                player.center2.parent = player.GobeletPhysic;
+                player.center3.parent = player.GobeletPhysic;
                 player.StartRolling(player.owner.Value);
             }
         }

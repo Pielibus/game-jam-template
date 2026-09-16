@@ -51,8 +51,8 @@ public class PlayerSpawningState : StateNode
             GameObject wall = gobelet.transform.Find("Wall").gameObject;
             gobelet.transform.parent = null;
             wall.transform.parent = null;
-            SetClient(player, newPlayer);
             newPlayer.OGRotation = spawnPoint.rotation.eulerAngles;
+            SetClient(player, newPlayer, spawnPoint.rotation.eulerAngles);
             currentSpawnIndex++;
         }
         
@@ -61,7 +61,7 @@ public class PlayerSpawningState : StateNode
     }
 
     [TargetRpc]
-    private void SetClient(PlayerID playerID, PlayerController player)
+    private void SetClient(PlayerID playerID, PlayerController player, Vector3 rotation)
     {
         var Cameras = GameObject.FindGameObjectsWithTag("MainCamera");
         var allInputs = FindObjectsByType<PlayerInput>();
@@ -78,6 +78,8 @@ public class PlayerSpawningState : StateNode
         localInput.enabled = true;
         player.head.GetComponent<MeshRenderer>().enabled = false;
         player.head.transform.parent.Find("Main Camera").gameObject.SetActive(true);
+        player.OGRotation = rotation;
+        Debug.Log(player.OGRotation);
         rotateDice.player = player;
     }
     public override void Exit(bool asServer)
