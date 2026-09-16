@@ -179,22 +179,40 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     
     private void loseDice(PlayerController playerController)
     {
-        Debug.Log(playerController.owner.Value + "Has lost a dice and have now " + playerController.AllDice.Length);
-        GameObject diceChoose = null;
-        if(playerController.AllDice.Length <= 0)
+        if (playerController.AllDice == null || playerController.AllDice.Length == 0)
         {
             losePlayer(playerController);
+            return;
         }
+
+        GameObject diceChoose = null;
         foreach (var dice in playerController.AllDice)
         {
-            if(dice.gameObject)
+            if (dice)
             {
                 diceChoose = dice;
             }
         }
-        playerController.AllDice.RemoveAt(System.Array.IndexOf (playerController.AllDice, diceChoose));
+
+        int diceIndex = System.Array.IndexOf(playerController.AllDice, diceChoose);
+        if (diceIndex < 0)
+        {
+            return;
+        }
+
+        var remainingDice = new GameObject[playerController.AllDice.Length - 1];
+        System.Array.Copy(playerController.AllDice, 0, remainingDice, 0, diceIndex);
+        System.Array.Copy(playerController.AllDice, diceIndex + 1, remainingDice, diceIndex, remainingDice.Length - diceIndex);
+        playerController.AllDice = remainingDice;
+        Debug.Log(playerController.owner.Value + " Has lost a dice and now has " + playerController.AllDice.Length);
+
         removeDice = diceChoose.transform;
         disable = false;
+
+        if (playerController.AllDice.Length == 0)
+        {
+            losePlayer(playerController);
+        }
         
     }
     private void losePlayer(PlayerController playerController)
