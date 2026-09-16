@@ -253,7 +253,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         if(removeDice.position.y < 4.5)
         {
             Debug.Log(removeDice.position.y);
-            float speed = 0.01f;
+            float speed = 0.6f * Time.deltaTime;
             removeDice.position = new Vector3(removeDice.position.x, removeDice.position.y + speed, removeDice.position.z);
             removeDice.eulerAngles = new Vector3(removeDice.eulerAngles.x + speed, removeDice.eulerAngles.y + speed, removeDice.eulerAngles.z + speed);
             return;
@@ -271,7 +271,8 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         {
             if(child.GetComponent<ParticleSystem>())
                 child.GetComponent<ParticleSystem>().Play();
-        } 
+        }
+        explosion.GetComponent<AudioSource>().Play();
     }
 
 }

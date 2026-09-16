@@ -23,6 +23,7 @@ public class BidChoice : NetworkBehaviour
     [SerializeField] public Dictionary<int, Vector3> faces = new();
     [SerializeField] public float speed;
     public Vector3 targetAngle;
+    [SerializeField] private NetworkAudioSource audioSource;
 
     private Vector3 currentAngle;
     private PlayerController player;
@@ -85,6 +86,7 @@ public class BidChoice : NetworkBehaviour
             }
                 
         }
+        UpdateSound();
         UpdateUI(bid);
 
     }
@@ -119,6 +121,11 @@ public class BidChoice : NetworkBehaviour
     private void UpdateUI(int bidSend)
     {
        ShowBid.text = bidSend.ToString(); 
+    }
+    [ServerRpc]
+    private void UpdateSound()
+    {
+       audioSource.Play();
     }
 
     private void Open(bool first, PlayerController mainController)
