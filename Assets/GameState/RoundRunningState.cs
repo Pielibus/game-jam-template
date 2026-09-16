@@ -75,7 +75,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             lastPlayer = playerActive;
             playerActive = _players[IndexPlayer];
             StartPlayerRound(playerActive.owner.Value,playerActive, false, bid, bidDice);
-            UpdateBid(currentBid.value, currentBidDice.value);
+            UpdateBid(currentBid.value, currentBidDice.value, playerActive);
         }
     }
     [ServerRpc]
@@ -109,14 +109,14 @@ public class RoundRunningState : StateNode<List<PlayerController>>
                 {
                     yield return new WaitForSeconds(delay);
                     HighlightDice(dice.Key.transform.parent.gameObject, true);
-                    UpdateBid(Results[currentBidDice.value], currentBidDice.value);
+                    UpdateBid(Results[currentBidDice.value], currentBidDice.value, playerActive);
                 }
             }
             yield return new WaitForSeconds(3f);
             foreach (var dice in numberChecker.dicesCount)
             {
                 HighlightDice(dice.Key.transform.parent.gameObject, false);
-                UpdateBid(0, 0);
+                UpdateBid(0, 0, playerActive);
             }
             if(Results[currentBidDice.value] >= currentBid.value)
             {
@@ -158,8 +158,9 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         }
     }
     [ObserversRpc]
-    private void UpdateBid(int bid, int bidDice)
+    private void UpdateBid(int bid, int bidDice, PlayerController player)
     {
+        rotateDice.player = player;
         rotateDice.StartRotation(bidDice, bid);
     }
     [TargetRpc]
