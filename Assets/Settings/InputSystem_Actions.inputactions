@@ -65,6 +65,26 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "HideDroite",
+                    "type": "Button",
+                    "id": "e3537d87-3a2c-4805-a677-c30556c9aaae",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "HideGauche",
+                    "type": "Button",
+                    "id": "ecbee31a-4d6d-4dd1-811f-4d62fbbb7bd0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -247,7 +267,7 @@
                 {
                     "name": "",
                     "id": "155f03bc-e94d-40e1-90c1-9f70061d1627",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -274,6 +294,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "PencherDroite",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f66f474-ef20-458f-ab89-55e9032ade5c",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "HideDroite",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ea6f4cb-2f73-4b5c-afa9-64e8c694cde6",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "HideGauche",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
