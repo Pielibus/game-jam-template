@@ -120,6 +120,7 @@ public class BidChoice : NetworkBehaviour
     {
        ShowBid.text = bidSend.ToString(); 
     }
+
     private void Open(bool first, PlayerController mainController)
     {
         Bid.GetComponent<BoxCollider>().enabled = true;
