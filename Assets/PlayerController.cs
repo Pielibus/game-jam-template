@@ -28,6 +28,16 @@ public class PlayerController : NetworkBehaviour
         numberChecker = GameObject.FindGameObjectWithTag("Ground").GetComponent<NumberChecker>();
         roundRunningState = GameObject.FindAnyObjectByType<RoundRunningState>();
     }
+    void Start()
+    {
+        if(isServer)
+        {
+            foreach (var dice in AllDice)
+            {
+                dice.GetComponent<Rigidbody>().isKinematic = false;
+            }
+        }
+    }
     [TargetRpc]
     public void StartRolling(PlayerID playerID)
     {
@@ -44,7 +54,6 @@ public class PlayerController : NetworkBehaviour
         if(!isOwner)
             return;
 
-        Debug.Log("Checked on " + owner.Value);
         Gobelet.GetComponent<CheckGobelet>().Check(owner.Value, context.performed); 
     }
     

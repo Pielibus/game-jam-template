@@ -1,5 +1,6 @@
 using System.Collections;
 using PurrNet.StateMachine;
+using PurrNet.Lobby;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -19,7 +20,9 @@ public class WaitForPlayersState : StateNode
     }
     private IEnumerator WaitForPlayers()
     {
-        while(networkManager.players.Count < minPlayer)
+        while (GameOrchestrator.active == null ||
+               GameOrchestrator.active.activeLobby == null ||
+               GameOrchestrator.active.activeLobby.players.Count > networkManager.playerCount)
         {
             yield return null;
         }

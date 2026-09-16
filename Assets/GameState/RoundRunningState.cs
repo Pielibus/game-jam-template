@@ -39,12 +39,10 @@ public class RoundRunningState : StateNode<List<PlayerController>>
 
         Running = true;
         _players = new List<PlayerController>();
-        Debug.Log(data.Count);
         foreach (var player in data)
         {
             if(player.owner.HasValue)
             {
-                Debug.Log("Player Added" + player.owner.Value);
                 _players.Add(player);
             }
         }
@@ -71,7 +69,6 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             currentBidDice.value = bidDice;
             
             IndexPlayer += 1;
-            Debug.Log(_players.Count + " "+ IndexPlayer);
             if(_players.Count - 1 < IndexPlayer)
                 IndexPlayer = 0;
             lastPlayer = playerActive;
@@ -153,7 +150,6 @@ public class RoundRunningState : StateNode<List<PlayerController>>
                 yield break;
             }
             yield return new WaitForSeconds(3f);
-            Debug.Log(_players.Count);
             bool stateChanged = machine.SetState(rollDiceState, _players);
             Debug.Log($"Set roll dice state: {stateChanged}");
             //StartPlayerRound(playerActive.owner.Value, playerActive, true, currentBid.value, currentBidDice.value);
@@ -252,13 +248,11 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         
         if(removeDice.position.y < 4.5)
         {
-            Debug.Log(removeDice.position.y);
             float speed = 0.6f * Time.deltaTime;
             removeDice.position = new Vector3(removeDice.position.x, removeDice.position.y + speed, removeDice.position.z);
             removeDice.eulerAngles = new Vector3(removeDice.eulerAngles.x + speed, removeDice.eulerAngles.y + speed, removeDice.eulerAngles.z + speed);
             return;
         }
-        Debug.Log(removeDice.position.y);
         Explode(removeDice.position, removeDice.rotation);
         Destroy(removeDice.gameObject);
     }

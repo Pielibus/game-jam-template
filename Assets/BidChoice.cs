@@ -90,6 +90,7 @@ public class BidChoice : NetworkBehaviour
         UpdateUI(bid);
 
     }
+    [ObserversRpc]
     public void StartRotation(PlayerController plr, int bidDice)
     {
         player = plr;
@@ -140,6 +141,7 @@ public class BidChoice : NetworkBehaviour
         Confirm.enabled = false;
         ShowBid.enabled = false;
         Dice.SetActive(false);
+        Debug.Log(mainController.spawnerBid.value);
         transform.position = mainController.spawnerBid.value;
         transform.eulerAngles = mainController.spawnerBidRotation.value;
         StartRotation(mainController, bidDice);
@@ -164,6 +166,7 @@ public class BidChoice : NetworkBehaviour
         ShowBid.enabled = true;
         Confirm.enabled = true;
         Dice.SetActive(true);
+        StartRotation(mainController, bidDice);
     }
     [ObserversRpc]
     private void CloseBid()

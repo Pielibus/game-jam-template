@@ -14,7 +14,6 @@ public class CheckGobelet : NetworkBehaviour
     [TargetRpc]
     public void Check(PlayerID playerID, bool Up)
     {
-        Debug.Log(playerID);
         if(Up)
         {
             animator.animator.SetTrigger("Check");

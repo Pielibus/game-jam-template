@@ -21,7 +21,6 @@ public class CameraController : NetworkBehaviour
     {
         _playerInput = transform.parent.GetComponentInParent<PlayerInput>();
         _lookAction = _playerInput.actions.FindAction("Look");
-        Debug.Log(_playerInput + " "+ _lookAction);
     }
 
     private void OnEnable()

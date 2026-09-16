@@ -14,7 +14,6 @@ public class Pencher : MonoBehaviour
         {
             if(!pencherDroite)
             {
-                Debug.Log("PencherDroite");
                 pencherDroite = true;
                 animator.SetTrigger("PencherDroite");
             }
@@ -32,7 +31,6 @@ public class Pencher : MonoBehaviour
         {
             if(!pencherGauche)
             {
-                Debug.Log("PencherGauche");
                 pencherGauche = true;
                 animator.SetTrigger("PencherGauche");
             }

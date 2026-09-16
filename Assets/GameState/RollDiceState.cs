@@ -68,7 +68,6 @@ public class RollDiceState : StateNode<List<PlayerController>>
                     player.Close.GetComponent<BoxCollider>().enabled = false;
                 }
             }
-            Debug.Log(playerControllers.Count);
             machine.Next(playerControllers);
         }
             
