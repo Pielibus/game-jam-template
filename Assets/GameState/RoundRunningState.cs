@@ -254,8 +254,10 @@ public class RoundRunningState : StateNode<List<PlayerController>>
             removeDice.eulerAngles = new Vector3(removeDice.eulerAngles.x + speed, removeDice.eulerAngles.y + speed, removeDice.eulerAngles.z + speed);
             return;
         }
+
         Explode(removeDice.position, removeDice.rotation);
         Destroy(removeDice.gameObject);
+        removeDice = null;
     }
     [ObserversRpc]
     private void Explode(Vector3 position, Quaternion rotation)
