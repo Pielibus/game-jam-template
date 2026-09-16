@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1745801}
   m_Layer: 0
-  m_Name: Spawn2
+  m_Name: Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1355,6 +1355,34 @@ MonoBehaviour:
   playerCharacters: []
   prefabPlayer: {fileID: 3563713715860392241, guid: 31ff1c7bffb254b7899c0dc6d49a2561, type: 3}
   rotateDice: {fileID: 347002391}
+  BlueMaterial:
+  - key: Suit
+    value: {fileID: 2100000, guid: 956937fa320ac1841a4ad0ab32b9d7fc, type: 2}
+  - key: Gobelet
+    value: {fileID: 2100000, guid: 78c776ee6b903964f8d2cde3bf590108, type: 2}
+  - key: Dice
+    value: {fileID: 2100000, guid: e34667dfdba976c4f879bac9dd04f8b9, type: 2}
+  RedMaterial:
+  - key: Dice
+    value: {fileID: 2100000, guid: 286c09c9d0f59d04a91247da1f26e08f, type: 2}
+  - key: Gobelet
+    value: {fileID: 2100000, guid: 466e47b7ec0613a4a933fa3816190603, type: 2}
+  - key: Suit
+    value: {fileID: 2100000, guid: 73312b78e356203429d390871118716d, type: 2}
+  YellowMaterial:
+  - key: Dice
+    value: {fileID: 2100000, guid: 20bf00bab21a2b9469a6d34817a6bf38, type: 2}
+  - key: Gobelet
+    value: {fileID: 2100000, guid: 2a3e1eec50da4084989429e958f9d081, type: 2}
+  - key: Suit
+    value: {fileID: 2100000, guid: b30982aee162b2045bd8441c2fb49291, type: 2}
+  GreenMaterial:
+  - key: Dice
+    value: {fileID: 2100000, guid: 291eda4e6d40e86448585a4d338220f4, type: 2}
+  - key: Gobelet
+    value: {fileID: 2100000, guid: d261d295947e2ff4ebd7e8b078239bb7, type: 2}
+  - key: Suit
+    value: {fileID: 2100000, guid: 8c36d2e2470bea5408979e97cd608a4e, type: 2}
   AllPlayers: []
   spawnPoints:
   - {fileID: 709326810}
@@ -2974,7 +3002,7 @@ GameObject:
   m_Component:
   - component: {fileID: 707547516}
   m_Layer: 0
-  m_Name: Spawn4
+  m_Name: Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3006,7 +3034,7 @@ GameObject:
   m_Component:
   - component: {fileID: 709326810}
   m_Layer: 0
-  m_Name: Spawn1
+  m_Name: Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4994,7 +5022,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1234234993}
   m_Layer: 0
-  m_Name: Spawn3
+  m_Name: Yellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using PurrNet;
 using PurrNet.StateMachine;
@@ -10,8 +11,16 @@ public class PlayerSpawningState : StateNode
     [SerializeField] private PlayerController prefabPlayer;
     [SerializeField] private RotateDice rotateDice;
 
+    [SerializeField] private Dictionary<String, Material> BlueMaterial = new Dictionary<String, Material>();
+    [SerializeField] private Dictionary<String, Material> RedMaterial = new Dictionary<String, Material>();
+    [SerializeField] private Dictionary<String, Material> YellowMaterial = new Dictionary<String, Material>();
+    [SerializeField] private Dictionary<String, Material> GreenMaterial = new Dictionary<String, Material>();
+
+
+
     public List<PlayerController> AllPlayers = new List<PlayerController>();
     public List<Transform> spawnPoints = new List<Transform>();
+    private Dictionary<String, Material> chooseDictionnary;
     public override void Enter(bool asServer)
     {
         base.Enter(asServer);
@@ -53,11 +62,41 @@ public class PlayerSpawningState : StateNode
             wall.transform.parent = null;
             newPlayer.OGRotation = spawnPoint.rotation.eulerAngles;
             SetClient(player, newPlayer, spawnPoint.rotation.eulerAngles);
+            SetColor(newPlayer, spawnPoint.name);
             currentSpawnIndex++;
         }
         
         AllPlayers = spawnedPlayers;
         return spawnedPlayers;
+    }
+
+    [ObserversRpc]
+    private void SetColor(PlayerController playerController, String spawner)
+    {
+        Debug.Log(spawner);
+        
+        if(spawner == "Blue")
+        {
+           chooseDictionnary = BlueMaterial; 
+        }
+        else if(spawner == "Red")
+        {
+            chooseDictionnary = RedMaterial; 
+        }
+        else if(spawner == "Green")
+        {
+            chooseDictionnary = GreenMaterial; 
+        }
+        else
+        {
+            chooseDictionnary = YellowMaterial; 
+        }
+        playerController.nose.GetComponent<MeshRenderer>().SetMaterials(new List<Material> { chooseDictionnary["Suit"] });
+        playerController.GobeletPhysic.GetComponent<MeshRenderer>().SetMaterials(new List<Material> { chooseDictionnary["Gobelet"] });
+        foreach (var dice in playerController.AllDice)
+        {
+            dice.GetComponent<MeshRenderer>().SetMaterials(new List<Material> { chooseDictionnary["Dice"] });
+        }
     }
 
     [TargetRpc]
