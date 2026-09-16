@@ -20,7 +20,7 @@ public class RollGobelet : MonoBehaviour
     private float initialVolume;
     public float movementSpeed;
     private bool onRoll = false;
-    private void Awake()
+    private void Start()
     {
         initialVolume = audioSource.volume;
     }
