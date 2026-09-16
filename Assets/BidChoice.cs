@@ -5,7 +5,7 @@ using Unity.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class BidChoice : NetworkBehaviour
 {
@@ -22,13 +22,18 @@ public class BidChoice : NetworkBehaviour
     [SerializeField] private Transform ParentDice;
     [SerializeField] public Dictionary<int, Vector3> faces = new();
     [SerializeField] public float speed;
+    [SerializeField] public float maxTime = 10;
+    [SerializeField] public float minTime = 5;
     public Vector3 targetAngle;
+    private bool on = false;
     [SerializeField] private NetworkAudioSource audioSource;
 
     private Vector3 currentAngle;
     private PlayerController player;
     public int CurrentBid, CurrentBidDice;
     private PlayerController mainController;
+    private float time;
+    private float randomTime;
 
     public void ListenClick(string button)
     {
@@ -44,6 +49,7 @@ public class BidChoice : NetworkBehaviour
         {
             if (Bluff.enabled)
             {
+                on = false;
                 roundRunningState.EndGame(mainController);
                 CloseBid();
             }
@@ -81,6 +87,7 @@ public class BidChoice : NetworkBehaviour
         {
             if(Confirm.enabled)
             {
+                on = false;
                 CloseBid();
                 roundRunningState.EndRound(mainController, bid, bidDice);
             }
@@ -97,6 +104,10 @@ public class BidChoice : NetworkBehaviour
         currentAngle = Dice.transform.localEulerAngles;
         
         targetAngle = faces[bidDice];
+        time = Time.fixedTime;
+        randomTime = Random.Range(minTime, maxTime);
+        on = true;
+
     }
     public void Update()
     {
@@ -106,6 +117,14 @@ public class BidChoice : NetworkBehaviour
             Mathf.LerpAngle(currentAngle.z, targetAngle.z, Time.deltaTime * speed));
 
         Dice.transform.localEulerAngles = currentAngle;
+        if(Time.fixedTime - time > randomTime && on)
+            Hmm();
+    }
+    private void Hmm()
+    {
+        time = Time.fixedTime;
+        randomTime = Random.Range(minTime, maxTime);
+        player.GetComponent<AudioSource>().Play();
     }
     [ObserversRpc]
     public void StartRound(PlayerID playerID, PlayerController playerController, int currentBid, int currentBidDice, bool first)
