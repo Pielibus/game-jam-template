@@ -32,6 +32,7 @@ public class RollDiceState : StateNode<List<PlayerController>>
                 player.center1.parent = player.GobeletPhysic;
                 player.center2.parent = player.GobeletPhysic;
                 player.center3.parent = player.GobeletPhysic;
+                player.rolling = true;
                 player.StartRolling(player.owner.Value);
             }
         }
@@ -66,6 +67,7 @@ public class RollDiceState : StateNode<List<PlayerController>>
                     player.center3.parent = null;
                     player.Wall.GetComponent<MeshCollider>().enabled = true;
                     player.Close.GetComponent<BoxCollider>().enabled = false;
+                    player.rolling = false;
                 }
             }
             machine.Next(playerControllers);

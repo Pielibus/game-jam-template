@@ -18,9 +18,10 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] public GameObject Wall;
     [SerializeField] public GameObject Close;
     private RoundRunningState roundRunningState;
-    
+    public bool rolling = false;
     private NumberChecker numberChecker;
     public Vector3 OGRotation;
+    private bool checking = false;
     public SyncVar<Vector3> spawnerBid = new SyncVar<Vector3>(Vector3.zero, ownerAuth:false);
     public SyncVar<Vector3> spawnerBidRotation = new SyncVar<Vector3>(Vector3.zero, ownerAuth:false);
     void Awake()
@@ -41,7 +42,7 @@ public class PlayerController : NetworkBehaviour
     [TargetRpc]
     public void StartRolling(PlayerID playerID)
     {
-        Gobelet.GetComponent<RollGobelet>().StartRoll();
+            Gobelet.GetComponent<RollGobelet>().StartRoll();
     }
     [TargetRpc]
     public void StopRolling(PlayerID playerID)
@@ -53,8 +54,12 @@ public class PlayerController : NetworkBehaviour
     {
         if(!isOwner)
             return;
-
-        Gobelet.GetComponent<CheckGobelet>().Check(owner.Value, context.performed); 
+        if(!rolling && checking != context.performed || Gobelet.GetComponent<CheckGobelet>().checking != context.performed)
+        {
+            Gobelet.GetComponent<CheckGobelet>().Check(owner.Value, context.performed);
+            checking = context.performed; 
+        }
+            
     }
     
 }

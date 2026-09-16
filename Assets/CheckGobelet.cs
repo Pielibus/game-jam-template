@@ -8,7 +8,7 @@ using PurrNet;
 public class CheckGobelet : NetworkBehaviour
 {
     [SerializeField] private NetworkAnimator animator;
-    private bool checking = false;
+    public bool checking = false;
     private bool asPause = false;
 
     [TargetRpc]
