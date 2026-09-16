@@ -19,19 +19,11 @@ MonoBehaviour:
   _enabledTypeNames: []
   assets:
   - {fileID: 8300000, guid: 3d0938f3f33604cb18735bbb7230b2bd, type: 3}
-  - {fileID: 8300000, guid: 3d11d1b2902d1459384982e7176bebc4, type: 3}
-  - {fileID: 8300000, guid: 5067757e3fe2c4665a3b4011e9b26d4c, type: 3}
   _availableTypeNames: []
   _assetGuids:
   - 3d0938f3f33604cb18735bbb7230b2bd
-  - 3d11d1b2902d1459384982e7176bebc4
-  - 5067757e3fe2c4665a3b4011e9b26d4c
-  _bakedIds: 000000000100000002000000i
+  _bakedIds: 00000000i
   _bakedAssets:
   - {fileID: 8300000, guid: 3d0938f3f33604cb18735bbb7230b2bd, type: 3}
-  - {fileID: 8300000, guid: 3d11d1b2902d1459384982e7176bebc4, type: 3}
-  - {fileID: 8300000, guid: 5067757e3fe2c4665a3b4011e9b26d4c, type: 3}
   _bakedPersistentIds:
   - 3d0938f3f33604cb18735bbb7230b2bd
-  - 3d11d1b2902d1459384982e7176bebc4
-  - 5067757e3fe2c4665a3b4011e9b26d4c
