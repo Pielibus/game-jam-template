@@ -23,6 +23,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
     public List<int> Results = new List<int>{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     [SerializeField] private PlayerSpawningState playerSpawningState;
     [SerializeField] private RollDiceState rollDiceState;
+    [SerializeField] private PartyEndState partyEndState;
     [SerializeField] private NumberChecker numberChecker;
     [SerializeField] private RotateDice rotateDice;
     [SerializeField] private Transform prefabExplosion;
@@ -218,7 +219,7 @@ public class RoundRunningState : StateNode<List<PlayerController>>
         _players.Remove(playerController);
         if(_players.Count <= 1)
         {
-            machine.SetState(rollDiceState, _players);
+            machine.SetState(partyEndState, _players);
         }
 
     }

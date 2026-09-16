@@ -3811,19 +3811,19 @@ PrefabInstance:
       objectReference: {fileID: -2228417370725966487, guid: 2d8c3c856d03e48459a85542dd8dca10, type: 3}
     - target: {fileID: 6513180666969370684, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: clampXmax
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6513180666969370684, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: clampXmin
-      value: -0.5
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6513180666969370684, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: clampYmax
-      value: 4.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6513180666969370684, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: clampYmin
-      value: 3.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6513180666969370684, guid: e62029d803bd04cffa2e871be6e7c5ca, type: 3}
       propertyPath: rollGobelet
