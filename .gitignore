@@ -81,6 +81,7 @@ mono_crash.*
 
 # Builds
 /[Ww]ebGL [Bb]uilds/
+connectwebgl.zip
 *.apk
 *.aab
 *.unitypackage
