@@ -16,7 +16,7 @@ public class CheckGobelet : NetworkBehaviour
     {
         if(Up)
         {
-            animator.animator.SetTrigger("Check");
+            animator.animator.SetBool("Check", true);
             checking = true;
             asPause = false;
         
@@ -28,12 +28,12 @@ public class CheckGobelet : NetworkBehaviour
             if(asPause)
             {
                 animator.speed = 1; 
-              animator.SetTrigger("UnCheck");
+              animator.animator.SetBool("Check", false);
             }
             else
             {
                 animator.speed = 1; 
-                animator.SetTrigger("UnCheck");
+                animator.animator.SetBool("Check", false);
             }
             
             checking = false;
